@@ -1,0 +1,3 @@
+C:\Users\7cath\source\repos\Employee Portal\obj\Debug\Employee Portal.njsproj.AssemblyReference.cache
+C:\Users\7cath\source\repos\Employee Portal\obj\Debug\Employee Portal.njsproj.CoreCompileInputs.cache
+C:\Users\7cath\source\repos\Employee Portal\bin\Microsoft.NodejsTools.WebRole.dll
