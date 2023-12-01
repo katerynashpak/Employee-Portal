@@ -1,0 +1,31 @@
+
+GET http://localhost:7000/subs
+
+###
+
+GET http://localhost:7000/subs/65600ae446e2db98feb07871
+
+###
+
+POST http://localhost:7000/subs
+Content-Type: application/json
+
+{
+	"name": "Amaizing Person",
+	"subToChannel": "Web Dev Simplified"
+}
+
+
+###
+
+
+DELETE http://localhost:7000/subs/65603b319fa5bc6059612a58
+
+###
+
+PATCH http://localhost:7000/subs/65600dfc46e2db98feb07877
+Content-Type: application/json
+
+{
+	"name": "New Name"
+}

@@ -30,9 +30,38 @@
   <ItemGroup>
     <Content Include=".env" />
     <Content Include=".gitignore" />
+    <Content Include="models\sub.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\user.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="passport-config.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="route.rest">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\subs.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="views\index.ejs">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\login.ejs">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\register.ejs">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="models\" />
+    <Folder Include="views\" />
+    <Folder Include="routes\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
