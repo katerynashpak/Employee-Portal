@@ -30,9 +30,6 @@
   <ItemGroup>
     <Content Include=".env" />
     <Content Include=".gitignore" />
-    <Content Include="models\sub.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>

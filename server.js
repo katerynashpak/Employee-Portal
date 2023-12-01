@@ -9,6 +9,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const User = require('./models/user');
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
@@ -16,27 +17,28 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 
 
+
 const initializePassport = require('./passport-config')
 initializePassport(
     passport,
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
+    async email => await User.findOne({ email: email }),
+    async id => await User.findById(id)
 )
 
 
 const users = []; //use array instead of database for now;
 
-/*
+
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
 
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to Database'));
+
+/*
+const usersRouter = require('./routes/users')
+app.use('/users', usersRouter)
 */
-
-
-//const subsRouter = require('./routes/subs')
-//app.use('/subs', subsRouter)
 
 app.set('view-engine', 'ejs')
 //app.use(express.json()) //wrong, getting undefined values for user fields
@@ -83,17 +85,20 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
+
     try {
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10) //hash password 10 times
-        users.push({
-            id: Date.now().toString(),
+        
+        const newUser = new User({
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword
         })
 
-        console.log('Resistered user: ', users[users.length - 1])
+        await newUser.save()
+
+        console.log('Resistered user: ', newUser)
         res.redirect('/login')
 
     } catch (error) {
@@ -147,11 +152,6 @@ function checkNotAuthenticated(req, res, next) {
     }
     next()
 }
-
-
-
-
-
 
 
 
