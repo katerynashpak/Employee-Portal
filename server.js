@@ -35,12 +35,12 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to Database'));
 
-/*
+
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
-*/
 
-app.set('view-engine', 'ejs')
+
+app.set('view engine', 'ejs')
 //app.use(express.json()) //wrong, getting undefined values for user fields
 app.use(express.urlencoded()) //works
 
@@ -80,6 +80,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 
 //register
+
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs')
 })
@@ -87,6 +88,9 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 app.post('/register', checkNotAuthenticated, async (req, res) => {
 
     try {
+        const existingUser = await User.findOne({ email: req.body.email })
+        if (existingUser)
+            return res.render('register', { error: 'Email is already in use. Try to log in' })
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10) //hash password 10 times
         

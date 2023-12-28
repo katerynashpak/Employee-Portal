@@ -1,29 +1,30 @@
 
-GET http://localhost:7000/subs
+GET http://localhost:7000/users
 
 ###
 
-GET http://localhost:7000/subs/65600ae446e2db98feb07871
+GET http://localhost:7000/users/658cf61084f1ad243ec84bd7
 
 ###
 
-POST http://localhost:7000/subs
+POST http://localhost:7000/users
 Content-Type: application/json
 
 {
-	"name": "Amaizing Person",
-	"subToChannel": "Web Dev Simplified"
+	"name": "kat shpak",
+	"email": "email@example.com",
+    "password": "password"
 }
 
 
 ###
 
 
-DELETE http://localhost:7000/subs/65603b319fa5bc6059612a58
+DELETE http://localhost:7000/users/658cf61084f1ad243ec84bd7
 
 ###
 
-PATCH http://localhost:7000/subs/65600dfc46e2db98feb07877
+PATCH http://localhost:7000/users/658cf61084f1ad243ec84bd7
 Content-Type: application/json
 
 {

@@ -39,7 +39,7 @@
     <Content Include="route.rest">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\subs.js">
+    <Content Include="routes\users.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="server.js" />

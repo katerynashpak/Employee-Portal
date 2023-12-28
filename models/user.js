@@ -9,12 +9,26 @@ const userSchema = new mongoose.Schema({
 
     email: {
         type: String,
-        required: true
+        required: true,
+        /*validate: {
+            validator: (value) => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                return emailRegex.test(value)
+            },
+            message: 'Invalid email format'
+        }*/
     },
 
     password: {
         type: String,
-        required: true
+        required: true,
+        /*validate: {
+            validator: (value) => {
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                return passwordRegex.test(value)
+            },
+            message: 'Invalid password format'
+        }*/
     }
 
 });

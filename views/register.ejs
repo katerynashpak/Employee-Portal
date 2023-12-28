@@ -1,4 +1,12 @@
 <h1>Register</h1>
+
+<% if (locals.error) { %>
+<p style="color: red;">
+  <%= locals.error %>
+</p>
+<% } %>
+
+
 <form action="/register" method="POST"> 
 
   <div> 
@@ -16,6 +24,7 @@
     <input type="password" id="password" name="password" required>
   </div>
 
+  
   <button type="submit">Register</button>
   
 </form>
