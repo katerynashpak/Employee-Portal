@@ -33,9 +33,13 @@
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="passport-config.js">
+    <Content Include="config\passport-config.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\images\pexels-maureen-bekker-1207966.jpg" />
+    <Content Include="public\images\pexels-scott-webb-305821.jpg" />
+    <Content Include="public\styles\login.css" />
+    <Content Include="public\styles\main.css" />
     <Content Include="route.rest">
       <SubType>Code</SubType>
     </Content>
@@ -51,12 +55,18 @@
     <Content Include="views\login.ejs">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\profile.ejs" />
+    <Content Include="views\update-profile.ejs" />
     <Content Include="views\register.ejs">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+    <Folder Include="config\" />
+    <Folder Include="public\" />
+    <Folder Include="public\images\" />
+    <Folder Include="public\styles\" />
     <Folder Include="views\" />
     <Folder Include="routes\" />
   </ItemGroup>

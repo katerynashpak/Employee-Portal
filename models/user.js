@@ -29,7 +29,19 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Invalid password format'
         }*/
-    }
+    },
+    birthday: {
+        type: Date,
+        required: false
+    },
+    jobTitle: {
+        type: String,
+        required: false
+    },
+    department: {
+        type: String,
+        required: false
+    },
 
 });
 

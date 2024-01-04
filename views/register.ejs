@@ -1,32 +1,63 @@
-<h1>Register</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+  <link rel="stylesheet" type="text/css" href="/styles/login.css" />
 
-<% if (locals.error) { %>
-<p style="color: red;">
-  <%= locals.error %>
-</p>
-<% } %>
+</head>
 
 
-<form action="/register" method="POST"> 
+<body>
 
-  <div> 
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
+  <div class="wrapper">
+  
+  <h1>Register</h1>
+
+  <% if (locals.error) { %>
+  <p style="color: red;">
+    <%= locals.error %>
+  </p>
+  <% } %>
+
+
+  <form action="/register" method="POST">
+
+    <div class="input-box">
+      <input type="text" placeholder="Name" id="name" name="name" required="">
+      <i class="fa-solid fa-user"></i>
   </div>
 
-  <div>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+    <div class="input-box"> 
+      <input type="email" placeholder="Email" id="email" name="email" required="">
+      <i class="fa-solid fa-envelope"></i>
   </div>
 
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
+    <div class="input-box">
+      <input type="password" placeholder="Password" id="password" name="password" required="">
+      <i class="fa-solid fa-lock"></i>
   </div>
+
+    <div class="agree-to-terms">
+      <label>
+        <input type="checkbox">I agree to the terms & conditions</input>
+      </label>
+    </div>
+
+
+    <button type="submit" class="btn">Register</button>
+
+    <div class="register-link">
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+    
+    </div>
+  </form>
 
   
-  <button type="submit">Register</button>
-  
-</form>
 
-<a href="/login">Login</a>
+</body>

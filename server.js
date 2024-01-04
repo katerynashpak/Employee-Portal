@@ -18,7 +18,7 @@ const methodOverride = require('method-override')
 
 
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./config/passport-config')
 initializePassport(
     passport,
     async email => await User.findOne({ email: email }),
@@ -39,6 +39,8 @@ db.once('open', () => console.log('Connected to Database'));
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
+app.use(express.static('public')); //for css styles
+
 
 app.set('view engine', 'ejs')
 //app.use(express.json()) //wrong, getting undefined values for user fields
@@ -49,7 +51,7 @@ app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUnititialized: false //do you want to save an empty value int he session? no
+    saveUnitialized: false //do you want to save an empty value int he session? no
 }))
 
 app.use(passport.initialize())
@@ -60,11 +62,71 @@ app.use(methodOverride('_method'))
 //--------------requests------------------
 
 //index
-app.get('/', checkAuthenticated, (req, res) => {    //check is authenticated before getting
+app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     res.render('index.ejs', { name: req.user.name })
+    
 })
 
+//profile
+
+app.get('/profile', checkAuthenticated, (req, res) => {    //check if authenticated before getting
+    try {
+        const { _id, name, email, birthday, jobTitle, department } = req.user
+        res.render('profile.ejs', { id: _id, name, email, birthday, jobTitle, department })
+    } catch (err) {
+        res.status(500).send('Error rendering profile page')
+    }
+
+})
+
+app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if authenticated before getting
+    try {
+        const { _id, name, email, birthday, jobTitle, department } = req.user
+        res.render('update-profile.ejs', { id: _id, name, email, birthday, jobTitle, department })
+    } catch (err) {
+        res.status(500).send('Error rendering profile update page')
+    }
+
+})
+
+app.patch('/profile', async (req, res) => {
+
+    console.log(req.body)
+    try {
+        const userId = req.user.id
+        const user = await User.findById(userId)
+        if (!user)
+            return res.status(404).json({ message: 'Cannot find user' })
+
+
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.birthday = req.body.birthday || user.birthday
+        user.jobTitle = req.body.jobTitle || user.jobTitle
+        user.department = req.body.department || user.department
+
+        const updatedUser = await user.save();
+
+        if (!updatedUser) {
+            return res.status(500).json({message: 'Failed to update user profile'})
+        }
+
+        console.log('User updated successfully:', updatedUser)
+        res.redirect('/profile')
+
+    } catch (err) {
+        console.error('Error updating user:', err.message)
+        res.status(500).json({ message: err.message })
+    }
+
+})
+
+
+
+
+
 //login
+
 app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login.ejs')
 })
@@ -164,5 +226,5 @@ const port = 7000
 app.listen(port, () => console.log(`Node app listening to port ${port}!`))
 
 
-//console.log('stopped at 23:25');
+
 

@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+body {
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('../images/pexels-scott-webb-305821.jpg');
+    background-size: cover;
+    background-position: left;
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #285b30; /* dark green */
+    font-size: 1.2rem;
+}
+
+a:hover{
+    color: #c06340; /* dark orange */
+}
+
+header{
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar{
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.navbar .logo a{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.navbar .links{
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .toggle_btn{
+    color: #285b30;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: none;
+}
+
+.btn-form-link {
+    background-color: #285b30;
+    color: white;
+    padding: 0.5rem 1.3rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.btn-form-link:hover{
+    scale: 1.05;
+    color: #c06340;
+}
+
+.btn-form-link:active {
+    scale: 0.95;
+}
+
+/* dropdown menu */
+.dropdown_menu{
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 70px;
+    height: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+}
+
+.dropdown_menu.open{
+    height: 240px;
+    backdrop-filter: blur(15px);
+}
+
+
+.dropdown_menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown_menu .btn-form-link{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* profile section */
+
+main {
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #285b30;
+}
+
+main h1{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+
+/* responsive design */
+
+@media(max-width: 992px){
+
+    .navbar .links,
+    .navbar .btn-form-link{
+        display: none;
+    }
+
+    .navbar .toggle_btn{
+        display: block;
+    }
+
+    .dropdown_menu{
+        display: block;
+    }
+
+}
+
+
+@media(max-width: 576px) {
+    .dropdown_menu{
+        left: 2rem;
+        width: unset;
+    }
+       
+}
