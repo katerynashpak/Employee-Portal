@@ -44,14 +44,14 @@ app.use(express.static('public')); //for css styles
 
 app.set('view engine', 'ejs')
 //app.use(express.json()) //wrong, getting undefined values for user fields
-app.use(express.urlencoded()) //works
+app.use(express.urlencoded({extended: true})) //works
 
 app.use(flash())
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUnitialized: false //do you want to save an empty value int he session? no
+    saveUninitialized: false //do you want to save an empty value int he session? no
 }))
 
 app.use(passport.initialize())
@@ -89,7 +89,37 @@ app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if aut
 
 })
 
-app.patch('/profile', async (req, res) => {
+app.post('/profile', checkAuthenticated, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'Cannot find user' });
+        }
+
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.birthday = req.body.birthday || user.birthday
+        user.jobTitle = req.body.jobTitle || user.jobTitle
+        user.department = req.body.department || user.department
+
+        const updatedUser = await user.save();
+
+        if (!updatedUser) {
+            return res.status(500).json({ message: 'Failed to update user profile' });
+        }
+
+        console.log('User updated successfully:', updatedUser);
+
+        // Redirect to the updated profile page
+        res.redirect('/profile');
+    } catch (err) {
+        console.error('Error updating user:', err.message);
+        res.status(500).json({ message: err.message });
+    }
+})
+
+app.patch('/profile', checkAuthenticated, async (req, res) => {
 
     console.log(req.body)
     try {
