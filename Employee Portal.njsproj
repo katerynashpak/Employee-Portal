@@ -30,25 +30,35 @@
   <ItemGroup>
     <Content Include=".env" />
     <Content Include=".gitignore" />
+    <Content Include="models\task.js" />
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\passport-config.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\scripts\dashboard.js" />
+    <Content Include="public\images\logo.png" />
     <Content Include="public\images\pexels-maureen-bekker-1207966.jpg" />
     <Content Include="public\images\pexels-scott-webb-305821.jpg" />
+    <Content Include="public\images\pfp.jfif" />
+    <Content Include="public\images\profile-photo-1.jfif" />
+    <Content Include="public\images\profile-photo-2.jfif" />
+    <Content Include="public\images\profile-photo-3.jfif" />
+    <Content Include="public\styles\dashboard.css" />
     <Content Include="public\styles\login.css" />
     <Content Include="public\styles\main.css" />
     <Content Include="route.rest">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\tasks.js" />
     <Content Include="routes\users.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="views\dashboard.ejs" />
     <Content Include="views\index.ejs">
       <SubType>Code</SubType>
     </Content>
@@ -56,6 +66,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\profile.ejs" />
+    <Content Include="views\tasks.ejs" />
     <Content Include="views\update-profile.ejs" />
     <Content Include="views\register.ejs">
       <SubType>Code</SubType>
@@ -66,6 +77,7 @@
     <Folder Include="config\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
+    <Folder Include="public\scripts\" />
     <Folder Include="public\styles\" />
     <Folder Include="views\" />
     <Folder Include="routes\" />

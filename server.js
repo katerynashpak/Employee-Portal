@@ -61,6 +61,13 @@ app.use(methodOverride('_method'))
 
 //--------------requests------------------
 
+//dashboard
+app.get('/dashboard', checkAuthenticated, (req, res) => {    //check if authenticated before getting
+    res.render('dashboard.ejs', { name: req.user.name })
+
+})
+
+
 //index
 app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     res.render('index.ejs', { name: req.user.name })
@@ -163,7 +170,8 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
+    //successRedirect: '/',
+    successRedirect: '/dashboard',
     failureRedirect: '/login',
     failureFlash: true
     }))
