@@ -28,4 +28,13 @@ themeToggler.addEventListener('click', () => {
 
 
 
+//recent orders
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/')
+        .then(response => response.text())
+            .then(html => {
+                document.etElementById('recent-orders-placeholder').innerHTML = html
+            })
+    .catch(error => console.error('Error fetching: ', error))
+})
 

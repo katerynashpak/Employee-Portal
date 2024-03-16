@@ -37,6 +37,7 @@
     <Content Include="config\passport-config.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\images\pexels-scott-webb-213727.jpg" />
     <Content Include="public\scripts\dashboard.js" />
     <Content Include="public\images\logo.png" />
     <Content Include="public\images\pexels-maureen-bekker-1207966.jpg" />
@@ -58,6 +59,7 @@
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="views\add-task.ejs" />
     <Content Include="views\dashboard.ejs" />
     <Content Include="views\index.ejs">
       <SubType>Code</SubType>

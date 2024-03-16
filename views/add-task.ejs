@@ -1,0 +1,96 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+
+</head>
+
+<h1>
+    Add New Task
+</h1>
+
+<form action="/dashboard" method="POS
+      T">
+  <!-- Add this hidden input to simulate a PATCH request -->
+  
+    
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" value="<%= name %>" required>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" value="<%= description %>" required>
+    </div>
+
+  <div class="form-group">
+    <label for="taskAssignee">Task Assignee</label>
+    <input type="text" id="taskAssignee" name="taskAssignee" value="<%= taskAssignee %>" required>
+    </div>
+
+  <div class="form-group">
+    <label for="priority">Priority</label>
+    <select id="priority" name="priority" required="">
+      
+      <option value="critical"
+        <%= priority === 'critical' ? 'selected' : '' %>>Critical
+      </option>
+      <option value="high_priority"
+        <%= priority === 'high_priority' ? 'selected' : '' %>>High Priority
+      </option>
+      <option value="medium_priority"
+        <%= priority === 'medium_priority' ? 'selected' : '' %>>Medium Priority
+      </option>
+      <option value="low_priority"
+        <%= priority === 'low_priority' ? 'selected' : '' %>>Low Priority
+      </option>
+      <option value="unknown"
+        <%= priority === 'unknown' ? 'selected' : '' %>>Unknown
+      </option>
+      
+      
+    </select>
+    </div>
+
+  <div class="form-group">
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" name="startDate" value=""<%= startDate ? startDate.toISOString().split('T')[0] : '' %>" required>
+    </div>
+
+  <div class="form-group">
+    <label for="dueDate">Due Date</label>
+    <input type="date" id="dueDate" name="dueDate" value=""<%= dueDate ? dueDate.toISOString().split('T')[0] : '' %>" required>
+    </div>
+
+
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select id="status" name="status" required="">
+
+      <option value="done"
+        <%= status === 'done' ? 'selected' : '' %>>Done
+        </option>
+      <option value="in-progress"
+        <%= status === 'in-progress' ? 'selected' : '' %>>In Progress
+        </option>
+      <option value="Late"
+        <%= status === 'late' ? 'selected' : '' %>>Late
+        </option>
+
+    </select>
+  </div>
+
+
+
+  <button type="submit">Save Changes</button>
+
+  
+  
+</form>

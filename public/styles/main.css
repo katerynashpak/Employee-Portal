@@ -9,7 +9,6 @@
 body {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    background-image: url('../images/pexels-scott-webb-305821.jpg');
     background-size: cover;
     background-position: left;
 }

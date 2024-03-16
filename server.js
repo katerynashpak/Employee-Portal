@@ -9,7 +9,8 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const User = require('./models/user');
+const User = require('./models/user')
+const Task = require('./models/task')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
@@ -62,8 +63,26 @@ app.use(methodOverride('_method'))
 //--------------requests------------------
 
 //dashboard
-app.get('/dashboard', checkAuthenticated, (req, res) => {    //check if authenticated before getting
-    res.render('dashboard.ejs', { name: req.user.name })
+app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if authenticated before getting
+    try {
+        const users = await User.find(); // Fetch all registered users from MongoDB
+        res.render('dashboard', { users }); // Pass users to the dashboard template
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+
+})
+
+
+//dashboard add-task
+app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if authenticated before getting
+    try {
+        const { _id, description, taskAssignee, priority, startDate, dueDate, status } = req.task
+        res.render('add-task.ejs', { id: _id, description, taskAssignee, priority, startDate, dueDate, status })
+    } catch (err) {
+        res.status(500).send('Error rendering dashboard add task page')
+    }
 
 })
 
@@ -260,7 +279,7 @@ function checkNotAuthenticated(req, res, next) {
 
 
 
-const port = 7000
+const port = process.env.PORT || 7000
 app.listen(port, () => console.log(`Node app listening to port ${port}!`))
 
 

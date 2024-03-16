@@ -2,6 +2,8 @@
 
 //how to run project
 
+//url: http://localhost:7000/login
+
 //1. download node.js
 //2. open terminal in the project folder
 //3. terminal input:	"npm install --express"

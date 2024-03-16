@@ -28,40 +28,41 @@
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
+      
         <div class="sidebar">
-          <a href="#">
+
+          <a href="/profile">
+            <i class="fa-solid fa-user"></i>
+            <h3>Profile</h3>
+          </a>
+
+          <a href="/dashboard" class="active">
             <i class="fa-solid fa-grip-vertical"></i>
             <h3>Dashboard</h3>
           </a>
 
-          <a href="#" class="active">
-            <i class="fa-solid fa-user"></i>
+          <a href="/team">
+            <i class="fa-solid fa-people-group"></i>
             <h3>Team</h3>
           </a>
 
-          <a href="#">
+          <a href="/tasks">
             <i class="fa-regular fa-clipboard"></i>
             <h3>Tasks</h3>
           </a>
 
-          <a href="#">
+          <a href="/analytics">
             <i class="fa-solid fa-chart-line"></i>
-            
             <h3>Analytics</h3>
           </a>
 
-          <a href="#">
+          <a href="/messages">
             <i class="fa-solid fa-comment"></i>
             <h3>Messages</h3>
             <span class="message-count">26</span>
           </a>
 
-          <a href="#">
-            <i class="fa-solid fa-plus"></i>
-            <h3>Add Task</h3>
-          </a>
-
-          <a href="#">
+          <a href="/login">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <h3>Logout</h3>
           </a>
@@ -206,12 +207,14 @@
 
         <div class="profile">
           <div class="info">
-            <p>Hey, <b><%= name %></b></p>
-            <small class="text-muted">Admin</small>
+            
+            <small class="text-muted"><%= name %></small>
           </div>
 
           <div class="profile-photo">
-            <img src="../images/pfp.jfif"/>
+            <a href="/profile">
+              <img src="../images/pfp.jfif" alt="Profile photo"/>
+            </a>
          </div>
         </div>
         
