@@ -10,11 +10,13 @@ const taskSchema = new mongoose.Schema({
         required: false
     },
     taskAssignee: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     priority: {
-        type: Date,
+        type: String,
+        enum: ['low', 'neutral', 'high'],
         required: true
     },
     startDate: {
@@ -27,7 +29,8 @@ const taskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: false
+        enum: ['ready', 'in-progress', 'needs-review', 'done'],
+        required: true
     }
 })
 

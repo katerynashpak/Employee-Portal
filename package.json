@@ -108,6 +108,7 @@
     "uri-js": "^4.4.1",
     "which": "^2.0.2",
     "wrappy": "^1.0.2",
+    "ws": "^8.16.0",
     "yocto-queue": "^0.1.0"
   },
   "license": "ISC"

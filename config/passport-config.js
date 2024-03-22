@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
-const { initial } = require('prelude-ls')
+//const { initial } = require('prelude-ls')
 const User = require('../models/user')
 
 function initialize(passport, getUserByEmail, getUserById) {

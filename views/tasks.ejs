@@ -7,15 +7,115 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
 
 </head>
 
 
 <body>
-  
-  
-  
-  
+
+  <div class="container">
+
+    <aside>
+      
+      <div class="top">
+        <div class="logo">
+          <img src="../images/logo.png"/>
+          <h2>Portal</h2>
+        </div>
+        <div class="close" id="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+        <div class="sidebar">
+
+          <a href="/profile" class="active">
+              <i class="fa-solid fa-user"></i>
+            <h3>Profile</h3>
+          </a>
+          
+          <a href="/dashboard">
+            <i class="fa-solid fa-grip-vertical"></i>
+            <h3>Dashboard</h3>
+          </a>
+
+          <a href="/team" >
+              <i class="fa-solid fa-people-group"></i>
+            <h3>Team</h3>
+          </a>
+
+          <a href="tasks">
+            <i class="fa-regular fa-clipboard"></i>
+            <h3>Tasks</h3>
+          </a>
+
+          <a href="/analytics">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Analytics</h3>
+          </a>
+
+          <a href="/messages">
+            <i class="fa-solid fa-comment"></i>
+            <h3>Messages</h3>
+            <span class="message-count">26</span>
+          </a>
+
+          
+
+          <a href="/login">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <h3>Logout</h3>
+          </a>
+      </div>
+    </aside>
+
+    <main>
+
+      <div class="wrapper">
+      
+        <h1>All tasks</h1>
+        <ul>
+          <% tasks.forEach(task => { %>
+            <li><%= task.name %> - <%= task.description %> - <%= task.status %></li>
+         <% }) %>
+        </ul>
+          
+
+        
+      </div>
+
+    </main>
+
+    <div class="right">
+
+      <div class="top">
+        
+        <button id="menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="theme-toggler">
+          <i class="fa-regular fa-sun active"></i>
+          <i class="fa-regular fa-moon"></i>
+        </div>
+
+        <div class="profile">
+          <div class="info">
+            
+            <small class="text-muted"></small>
+          </div>
+
+          <div class="profile-photo">
+            <a href="/profile">
+              <img src="../images/pfp.jfif" alt="Profile photo"/>
+            </a>
+         </div>
+        </div>
+        
+      </div>
+    </div>
+
+
+  </div>
   
 </body>

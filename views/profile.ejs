@@ -8,7 +8,8 @@
         referrerpolicy="no-referrer"
     />
   <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
-  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/profile.css" />
+  
 
 
 </head>
@@ -69,32 +70,82 @@
     </aside>
 
     <main>
+
       <div class="wrapper">
       
           <h1>User Profile</h1>
           <div>
-            <p>
-              <strong>Name:</strong> <%= name %>
-            </p>
-            <p>
-              <strong>Email:</strong> <%= email %>
-            </p>
-            <p>
-              <strong>Birthday:</strong> <%= birthday ? birthday.toISOString().split('T')[0] : 'N/A' %>
-            </p>
-            <p>
-              <strong>Job Title:</strong> <%= jobTitle || 'N/A' %>
-            </p>
-            <p>
-              <strong>Department:</strong> <%= department || 'N/A' %>
-            </p>
+            <div class="name">
+              <h><strong>Name:</strong></h3><p><%= name %></p>
+            </div>
+            
+            <div class="email">
+              <p>
+                <strong>Email:</strong> <%= email %>
+              </p>
+            </div>
+            
+            <div class="dob">
+              <p>
+                <strong>Birthday:</strong> <%= birthday ? birthday.toISOString().split('T')[0] : 'N/A' %>
+              </p>
+            </div>
+            
+            <div class="job-title">
+              <p>
+                <strong>Job Title:</strong> <%= jobTitle || 'N/A' %>
+              </p>
+            </div>
+            
+            <div class-="department">
+              <p>
+                <strong>Department:</strong> <%= department || 'N/A' %>
+              </p>
+            </div>
+            
           </div>
 
         
       </div>
+
+      <!-- Update button to initiate profile update -->
+      <a href="/profile/update">Update</a>
+
     </main>
+
+    <div class="right">
+
+      <div class="top">
+        
+        <button id="menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="theme-toggler">
+          <i class="fa-regular fa-sun active"></i>
+          <i class="fa-regular fa-moon"></i>
+        </div>
+
+        <div class="profile">
+          <div class="info">
+            
+            <small class="text-muted"></small>
+          </div>
+
+          <div class="profile-photo">
+            <a href="/profile">
+              <img src="../images/pfp.jfif" alt="Profile photo"/>
+            </a>
+         </div>
+        </div>
+        
+      </div>
+    </div>
+
+
   </div>
     
-  <!-- Update button to initiate profile update -->
-  <a href="/profile/update">Update Profile</a>
+  
+  <!--toggle button functionality-->
+  <script src="../scripts/dashboard.js"></script>
 </body>

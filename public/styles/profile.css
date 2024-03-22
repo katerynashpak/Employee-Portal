@@ -1,0 +1,30 @@
+
+
+
+main .wrapper{
+    
+    margin-top: 1.4rem;
+    
+}
+
+
+main .wrapper > div{
+    background: rgb(180, 180, 180);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+    backdrop-filter: blur(20px);
+
+    font-size: large;
+
+
+}
+
+main .wrapper h3 p{
+    display: inline;
+}
+
+
+

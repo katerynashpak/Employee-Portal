@@ -1,21 +1,23 @@
+
+
 :root {
     --color-primary: #98b01a;
     --color-danger: #c05b5b;
     --color-success: #66c59c;
     --color-warning: #d38e4c;
-    --color-white: rgba(147, 140, 200, 0.4);
-    --color-info-dark: #c3bec3;
-    --color-info-light: #d3cece;
+    --color-white: rgba(99, 93, 145, 0.8);
+    --color-info-dark: #f4f4f4;
+    --color-info-light: #f4f4f4;
     --color-dark: #f4f4f4;
     --color-light: rgba(67, 68, 79, 0.18);
     --color-primary-variant: #1f309f;
-    --color-dark-variant: #696969;
-    --color-background: #f4f4f4;
+    --color-dark-variant: #808a51;
+    --color-background: #b9b8c4;
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
-    --card-padding: 1.8rem;
+    --card-padding: 1.2rem;
     --padding-1: 1.2rem;
     --box-shadow: 0 2rem 3rem var(--color-light);
     --color-red: rgba(119, 45, 34, 0.9);
@@ -39,7 +41,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 0.88rem;
     background: var(--color-background);
-    background-image: url('../images/pexels-maureen-bekker-1207966.jpg');
+    
     background-size: cover;
     background-position: left;
     user-select: none;
@@ -47,8 +49,6 @@ body {
     color: var(--color-dark);
     margin: 0;
     padding-left: 40px;
-    
-
 
 }
 
@@ -235,19 +235,19 @@ aside {
         }
 
 
-            aside .sidebar a.active:before {
-                content: "";
-                width: 6px;
-                height: 100%;
-                background: var(--color-primary);
-            }
 
+        aside .sidebar a.active:before {
+            content: "";
+            width: 6px;
+            height: 100%;
+            background: var(--color-primary);
+            
+        }
 
-
-            aside .sidebar a.active i {
-                color: var(--color-primary);
-                margin-left: calc(1rem - 6px);
-            }
+        aside .sidebar a.active i {
+            color: var(--color-primary);
+            margin-left: calc(1rem - 6px);
+        }
 
 
 
@@ -264,7 +264,7 @@ aside {
 
     aside .sidebar .message-count {
         background: var(--color-danger);
-        color: var(--color-white);
+        color: var(--color-info-light);
         padding: 2px 10px;
         font-size: 11px;
         border-radius: var(--border-radius-1);
@@ -283,17 +283,18 @@ main {
     main .date {
         display: inline-block;
         background: var(--color-white);
+        
         border-radius: var(--border-radius-1);
         margin-top: 1rem;
         padding: 0.5rem 1.6rem;
     }
 
 
-        main .date input[type='date'] {
-            background: transparent;
-            color: var(--color-dark);
-            border: none;
-        }
+    main .date input[type='date'] {
+        background: transparent;
+        color: var(--color-dark);
+        border: none;
+    }
 
     main .insights {
         display: grid;
@@ -692,7 +693,7 @@ main {
 
 @media screen and (max-width: 768px) {
     .container {
-        width: 100%;
+        /*width: 100%;*/
         grid-template-columns: 1fr;
     }
 

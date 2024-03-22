@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Messaging</title>
+</head>
+<body>
+    <h1>Real Time Messaging</h1>
+    <pre id="messages" style="height: 400px; overflow: scroll"></pre>
+    <input type="text" id="messageBox" placeholder="Type your message here" style="display: block; width: 100%;
+    margin-bottom: 10px; padding: 10px;"/>
+    <button id="send" title="Send Message!" style="width: 100%; height: 30px;">Send Message</button>
+
+    <script>
+        const sendBtn = document.getElementById('send');
+        const messages = document.getElementById('messages');
+        const messageBox = document.getElementById('messageBox');
+
+        let ws;
+
+        function showMessage(message){
+            if(typeof message !== 'string'){
+                message = message.toString()
+            }
+
+            messages.textContent += `\n\n${message}`; //backticks, not single quotation marks
+            messages.scrollTop = messages.scrollHeight;
+            messageBox.value = '';
+        }
+
+        function init(){
+            if(ws){
+                ws.onerror = ws.onopen = ws.onclose = null;
+                ws.close();
+            }
+
+            ws = new WebSocket('ws://localhost:7000');
+
+            ws.onopen = () => {
+                console.log('Connection opened!');
+            };
+
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                showMessage(message.content);
+            };
+
+            ws.onclose = function(){
+                ws = null;
+                // showMessage('Connection closed');
+            };
+        }
+
+        sendBtn.onclick = function(){
+            if(!ws || ws.readyState !== WebSocket.OPEN){
+                showMessage("No WebSocket connection :(");
+                return;
+            }
+
+            const newMessage = messageBox.value;
+            const messageObject = { content: newMessage }; // Construct message object
+            ws.send(JSON.stringify(messageObject)); // Send message as JSON string
+            showMessage(newMessage); // Display message in the chat
+        };
+
+        init();
+        console.log("state: ", ws.readyState);
+    </script>
+</body>
+</html>
+
+
