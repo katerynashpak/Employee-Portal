@@ -8,6 +8,7 @@
         referrerpolicy="no-referrer"
     />
   <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/tasks.css" />
 
 </head>
 
@@ -71,6 +72,57 @@
 
     <main>
 
+      <button id="add-task-btn">New Task</button>
+
+      <!--modal form for adding a task-->
+      <div id="task-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>New Task</h2>
+          <form id="task-form" action="/tasks" method="POST">
+            
+            <label for="task-name">Task Name:</label>
+            <input type="text" id="task-name" name="taskName" required>
+
+            <label for="task-description">Task Description:</label>
+            <textarea id="task-description" name="taskDescription" required></textarea>
+
+            <label for="task-assignee">Task Assignee:</label>
+            <input type="text" id="task-assignee" name="taskAssignee" required>
+
+            <label for="task-priority">Task Priority:</label>
+            <select id="task-priority" name="taskPriority" required>
+
+              <option value="low">Low</option>
+              <option value="neutral">Neutral</option>
+              <option value="high">High</option>
+
+            </select>
+
+            <label for="task-start-date">Start Date:</label>
+            <input type="date" id="task-start-date" name="startDate" required>
+
+            <label for="task-due-date">Due Date:</label>
+            <input type="date" id="task-due-date" name="dueDate" required>
+
+            <label for="task-status">Task Status:</label>
+            <select id="task-status" name="taskStatus" required>
+              
+              <option value="ready">Ready</option>
+              <option value="in-progress">In-progress</option>
+              <option value="needs-review">Needs review</option>
+              <option value="done">Done</option>
+
+            </select>
+
+            <button type="submit">New Task</button>
+            
+          </form>
+
+        </div>
+      </div>
+      
+
       <div class="wrapper">
       
         <h1>All tasks</h1>
@@ -117,5 +169,14 @@
 
 
   </div>
+
+   <!--add new task modal form-->
+   <script src="../scripts/add-task.js"></script> 
   
 </body>
+
+
+
+
+
+

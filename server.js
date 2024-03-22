@@ -87,8 +87,8 @@ app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if au
 //dashboard add-task
 app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
-        const { _id, description, taskAssignee, priority, startDate, dueDate, status } = req.task
-        res.render('add-task.ejs', { id: _id, description, taskAssignee, priority, startDate, dueDate, status })
+        const { _id, name, description, taskAssignee, priority, startDate, dueDate, status } = req.task
+        res.render('add-task.ejs', { id: _id, name, description, taskAssignee, priority, startDate, dueDate, status })
     } catch (err) {
         res.status(500).send('Error rendering dashboard add task page')
     }
@@ -226,31 +226,33 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
     try {
 
         //taskAssignee validation
-        const user = await User.findById(req.body.taskAssignee)
+        const user = await User.findOne({name: req.body.taskAssignee})
         if (!user) {
             return res.status(400).json({ message: 'Invalid task assignee' })
         }
 
+
         //priority validation
         const allowedPriority = ['low', 'neutral', 'high']
-        if (!allowedPriority.includes(req.body.priority)) {
+        if (!allowedPriority.includes(req.body.taskPriority)) {
             return res.status(400).json({ message: 'Invalid priority value' })
         }
 
+        
         //status validation
         const allowedStatus = ['ready', 'in-progress', 'needs-review', 'done']
-        if (!allowedStatus.includes(req.body.status)) {
+        if (!allowedStatus.includes(req.body.taskStatus)) {
             return res.status(400).json({ message: 'Invalid status value' })
         }
 
         const task = new Task({
-            name: req.body.name,
-            description: req.body.description,
-            taskAssignee: req.body.taskAssignee,
-            priority: req.body.priority,
+            name: req.body.taskName,
+            description: req.body.taskDescription,
+            taskAssignee: user._id, //assign ObjectId to user
+            priority: req.body.taskPriority,
             startDate: req.body.startDate,
             dueDate: req.body.dueDate,
-            status: req.body.status
+            status: req.body.taskStatus
         })
 
         const newTask = await task.save()
