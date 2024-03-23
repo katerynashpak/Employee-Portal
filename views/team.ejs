@@ -28,7 +28,7 @@
           </div>
             <div class="sidebar">
     
-              <a href="/profile" class="active">
+              <a href="/profile">
                   <i class="fa-solid fa-user"></i>
                 <h3>Profile</h3>
               </a>
@@ -38,7 +38,7 @@
                 <h3>Dashboard</h3>
               </a>
     
-              <a href="/team" >
+              <a href="/team" class="active">
                   <i class="fa-solid fa-people-group"></i>
                 <h3>Team</h3>
               </a>
@@ -81,34 +81,7 @@
     
         </main>
     
-        <div class="right">
-    
-          <div class="top">
-            
-            <button id="menu-btn">
-              <i class="fa-solid fa-bars"></i>
-            </button>
-    
-            <div class="theme-toggler">
-              <i class="fa-regular fa-sun active"></i>
-              <i class="fa-regular fa-moon"></i>
-            </div>
-    
-            <div class="profile">
-              <div class="info">
-                
-                <small class="text-muted"></small>
-              </div>
-    
-              <div class="profile-photo">
-                <a href="/profile">
-                  <img src="../images/pfp.jfif" alt="Profile photo"/>
-                </a>
-             </div>
-            </div>
-            
-          </div>
-        </div>
+        <%- include('top.ejs') %>
     
     
       </div>

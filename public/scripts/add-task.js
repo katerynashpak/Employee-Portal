@@ -1,7 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', function(){
     const modal = document.getElementById("task-modal")
     const btn = document.getElementById("add-task-btn")
-    const closeBtn = document.querySelector(".close")
+    const closeBtn = document.querySelector(".modal-content .close")
 
     btn.onclick = function () {
         modal.style.display = "block"
@@ -17,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 })
+
+
 
 
 FormData.addEventListener('submit', async function(event){

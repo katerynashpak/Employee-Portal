@@ -256,7 +256,8 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
         })
 
         const newTask = await task.save()
-        res.status(201).json(newTask)
+        //res.status(201).json(newTask)
+        res.redirect('/tasks') //reload the tasks page
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -318,9 +319,10 @@ app.patch('/tasks', checkAuthenticated, async (req, res) => {
 
 
 //delete a task
-app.delete('/tasks', checkAuthenticated, async (req, res) => {
+app.delete('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
-        await res.task.deleteOne({ _id: req.params.id })
+        //const taskId = req.params.id;
+        await Task.deleteOne({ _id: req.params.id })
         res.json({ message: 'Deleted Task' })
     } catch (err) {
         res.status(500).json({ message: err.message })
