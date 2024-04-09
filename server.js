@@ -20,7 +20,8 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 
 const http = require('http')
-const WebSocket = require('ws')
+const {handleWebSocket} = require('./config/websocket')
+
 
 
 
@@ -32,14 +33,14 @@ initializePassport(
 )
 
 
-const users = []; //use array instead of database for now;
+const users = [] //use array instead of database for now
 
 
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
 
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
 
 //import routes
 const usersRouter = require('./routes/users')
@@ -49,7 +50,7 @@ const tasksRouter = require('./routes/tasks')
 app.use('/tasks', tasksRouter)
 
 
-app.use(express.static('public')); //for css styles
+app.use(express.static('public')) //for css styles
 
 
 app.set('view engine', 'ejs')
@@ -69,16 +70,18 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 
+
+
 //--------------requests------------------
 
 //dashboard
 app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if authenticated before getting
     try {
-        const users = await User.find(); // Fetch all registered users from MongoDB
-        res.render('dashboard', { users }); // Pass users to the dashboard template
+        const users = await User.find() // Fetch all registered users from MongoDB
+        res.render('dashboard', { users }) // Pass users to the dashboard template
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error)
+        res.status(500).send('Internal Server Error')
     }
 
 })
@@ -126,10 +129,10 @@ app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if aut
 
 app.post('/profile', checkAuthenticated, async (req, res) => {
     try {
-        const userId = req.user.id;
-        const user = await User.findById(userId);
+        const userId = req.user.id
+        const user = await User.findById(userId)
         if (!user) {
-            return res.status(404).json({ message: 'Cannot find user' });
+            return res.status(404).json({ message: 'Cannot find user' })
         }
 
         user.name = req.body.name || user.name
@@ -138,19 +141,19 @@ app.post('/profile', checkAuthenticated, async (req, res) => {
         user.jobTitle = req.body.jobTitle || user.jobTitle
         user.department = req.body.department || user.department
 
-        const updatedUser = await user.save();
+        const updatedUser = await user.save()
 
         if (!updatedUser) {
-            return res.status(500).json({ message: 'Failed to update user profile' });
+            return res.status(500).json({ message: 'Failed to update user profile' })
         }
 
-        console.log('User updated successfully:', updatedUser);
+        console.log('User updated successfully:', updatedUser)
 
         // Redirect to the updated profile page
-        res.redirect('/profile');
+        res.redirect('/profile')
     } catch (err) {
-        console.error('Error updating user:', err.message);
-        res.status(500).json({ message: err.message });
+        console.error('Error updating user:', err.message)
+        res.status(500).json({ message: err.message })
     }
 })
 
@@ -170,7 +173,7 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
         user.jobTitle = req.body.jobTitle || user.jobTitle
         user.department = req.body.department || user.department
 
-        const updatedUser = await user.save();
+        const updatedUser = await user.save()
 
         if (!updatedUser) {
             return res.status(500).json({message: 'Failed to update user profile'})
@@ -187,39 +190,69 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
 })
 
 
+
+
 //messages
 
 app.get('/messages', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
         const { _id, name } = req.user
-        res.render('messages.ejs', { id: _id, name })
+        console.log("User name:", name)
+        res.render('messages.ejs', { id: _id, name: name })
     } catch (err) {
         res.status(500).send('Error rendering profile page')
     }
 
 })
 
+//message count
+/*
+app.get('/:page', async (req, res) => {
+    try {
+        const unreadCount = await getMessageCount(); //implement
+        res.json({ unreadCount: unreadCount });
+    } catch (error) {
+        console.error('Error retrieving unread message count:', error);
+        res.status(500).json({ error: 'Failed to retrieve unread message count' });
+    }
+})
+*/
 
 //tasks
 
 app.use('/tasks', async (req, res, next) => {
     try {
-        const tasks = await Task.find();
-        req.tasks = tasks; // Attach tasks to request object
-        next();
+        const tasks = await Task.find()
+        req.tasks = tasks // Attach tasks to request object
+        next()
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message })
     }
-});
+})
 
 // Route to render tasks page with all tasks
 app.get('/tasks', checkAuthenticated, (req, res) => {
     try {
-        res.render('tasks.ejs', { tasks: req.tasks });
+        res.render('tasks.ejs', { tasks: req.tasks })
     } catch (err) {
-        res.status(500).send('Error rendering tasks page');
+        res.status(500).send('Error rendering tasks page')
     }
-});
+})
+
+
+app.get('/tasks/:id', checkAuthenticated, async (req, res) => {
+    try {
+        const taskId = req.params.id
+        const task = await Task.findById(taskId)
+        if (!task) {
+            return res.status(404).send('Task not found')
+        }
+        res.render('tasks.ejs', { task: task })
+    } catch (err) {
+        res.status(500).send('Error rendering task')
+    }
+})
+
 
 //create a task
 app.post('/tasks', checkAuthenticated, async (req, res) => {
@@ -263,8 +296,16 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
     }
 })
 
-app.patch('/tasks', checkAuthenticated, async (req, res) => {
+app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
+
+        const taskId = req.params.id
+        const task = await Task.findById(taskId)
+        if(!task){
+            return res.status(400).json({ message: 'Task not found' })
+        }
+
+        
 
         //taskAssignee validation
         if (req.body.taskAssignee) {
@@ -286,33 +327,34 @@ app.patch('/tasks', checkAuthenticated, async (req, res) => {
             return res.status(400).json({ message: 'Invalid status value' })
         }
 
-        if (req.body.name != null) {
-            res.task.name = req.body.name
+        if (req.body.name) {
+            task.name = req.body.name
         }
-        if (req.body.description != null) {
-            res.task.description = req.body.description
+        if (req.body.description) {
+            task.description = req.body.description
         }
-        if (req.body.taskAssignee != null) {
-            res.task.taskAssignee = req.body.taskAssignee
+        if (req.body.taskAssignee) {
+            task.taskAssignee = req.body.taskAssignee
         }
-        if (req.body.priority != null) {
-            res.task.priority = req.body.priority
+        if (req.body.priority) {
+            task.priority = req.body.priority
         }
-        if (req.body.startDate != null) {
-            res.task.startDate = req.body.startDate
+        if (req.body.startDate) {
+            task.startDate = req.body.startDate
         }
-        if (req.body.dueDate != null) {
-            res.task.dueDate = req.body.dueDate
+        if (req.body.dueDate) {
+            task.dueDate = req.body.dueDate
         }
-        if (req.body.status != null) {
-            res.task.status = req.body.status
+        if (req.body.status) {
+            task.status = req.body.status
         }
 
-        const updatedTask = await res.task.save();
+        const updatedTask = await task.save()
+
         res.json(updatedTask)
 
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ message: err.message })
 
     }
 })
@@ -321,7 +363,7 @@ app.patch('/tasks', checkAuthenticated, async (req, res) => {
 //delete a task
 app.delete('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
-        //const taskId = req.params.id;
+        //const taskId = req.params.id
         await Task.deleteOne({ _id: req.params.id })
         res.json({ message: 'Deleted Task' })
     } catch (err) {
@@ -337,7 +379,7 @@ app.delete('/tasks/:id', checkAuthenticated, async (req, res) => {
 
 app.get('/team', checkAuthenticated, async (req, res) => {
     try{
-        const users = await User.find();
+        const users = await User.find()
         res.render('team.ejs', {users: users})
     } catch (err){
         res.status(500).send('Error rendering team page')
@@ -405,7 +447,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     }
     console.log(users)
 
-});
+})
 
 
 
@@ -448,37 +490,9 @@ function checkNotAuthenticated(req, res, next) {
 
 
 const server = http.createServer(app)
-const wss = new WebSocket.Server({server})
+//const wss = new WebSocket.Server({server})
 
-
-let messages = []; // Array to store messages during the session
-
-wss.on('connection', function connection(ws) {
-    console.log('WebSocket connection established.');
-
-    // Send existing messages to the newly connected client
-    messages.forEach(message => {
-        ws.send(JSON.stringify({ content: message }));
-    });
-
-    // Broadcast incoming messages to all connected clients
-    ws.on('message', function incoming(data) {
-        console.log('Received message:', data);
-
-        // Parse the received JSON message
-        const message = JSON.parse(data);
-        messages.push(message.content); // Store the message content in memory
-
-        // Broadcast the new message content to all clients
-        wss.clients.forEach(function each(client) {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify({ content: message.content }));
-            }
-        });
-    });
-});
-
-
+handleWebSocket(server)
 
 const port = process.env.PORT || 7000
 server.listen(port, () => console.log(`Portal app listening to port ${port}!`))

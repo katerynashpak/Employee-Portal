@@ -1,8 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', function(){
     const modal = document.getElementById("task-modal")
+    const modalContent = modal.querySelector(".modal-content")
     const btn = document.getElementById("add-task-btn")
     const closeBtn = document.querySelector(".modal-content .close")
+
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
 
     btn.onclick = function () {
         modal.style.display = "block"
@@ -17,13 +20,50 @@ document.addEventListener('DOMContentLoaded', function(){
             modal.style.display = "none"
         }
     }
+
+    /*
+    //draggable
+
+    modalContent.onmousedown = function(e){
+        e.preventDefault()
+        pos3 = e.clientX
+        pos4 = e.clientY
+        document.onmouseup = closeDragElement
+        document.onmousemove = elementDrag
+    }
+
+
+    function elementDrag(e){
+        e.preventDefault()
+        pos1 = pos3 - e.clientX
+        pos2 = pos4 - e.clientY
+        pos3 = e.clientX
+        pos4 = e.clientY
+
+
+
+
+        
+        modal.style.top = (modal.offsetTop - pos2) + "px"
+        modal.style.left = (modal.offsetLeft - pos1) + "px"
+
+
+    }
+
+    function closeDragElement(){
+        document.onmouseup = null
+        document.onmousemove = null
+    }
+
+    */
+
 })
 
 
 
 
 FormData.addEventListener('submit', async function(event){
-    event.preventDefault();
+    event.preventDefault()
 
     const formData = JSON.stringify(Object.fromEntries(new FormData(form)))
 
@@ -37,7 +77,7 @@ FormData.addEventListener('submit', async function(event){
         })
 
         if(response.ok){
-            window.history.back();
+            window.history.back()
         } else{
             console.error('Failed to add task', response.statusText)
         }
@@ -50,5 +90,3 @@ FormData.addEventListener('submit', async function(event){
 
 
 })
-
-    

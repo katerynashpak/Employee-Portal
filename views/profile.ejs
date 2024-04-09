@@ -14,64 +14,71 @@
 
 </head>
 <body>
-  <div class="container">
+    <div class="container">
 
-    <aside>
-      
-      <div class="top">
-        <div class="logo">
-          <img src="../images/logo.png"/>
-          <h2>Portal</h2>
+      <aside>
+        
+        <div class="top">
+          <div class="logo">
+            <img src="../images/logo.png"/>
+            <h2>Portal</h2>
+          </div>
+          <div class="close" id="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
         </div>
-        <div class="close" id="close-btn">
-          <i class="fa-solid fa-xmark"></i>
+          <div class="sidebar">
+
+            <a href="/profile" class="active">
+                <i class="fa-solid fa-user"></i>
+              <h3>Profile</h3>
+            </a>
+            
+            <a href="/dashboard">
+              <i class="fa-solid fa-grip-vertical"></i>
+              <h3>Dashboard</h3>
+            </a>
+
+            <a href="/team" >
+                <i class="fa-solid fa-people-group"></i>
+              <h3>Team</h3>
+            </a>
+
+            <a href="tasks">
+              <i class="fa-regular fa-clipboard"></i>
+              <h3>Tasks</h3>
+            </a>
+
+            <a href="/analytics">
+              <i class="fa-solid fa-chart-line"></i>
+              <h3>Analytics</h3>
+            </a>
+
+            <a href="/messages">
+              <i class="fa-solid fa-comment"></i>
+              <h3>Messages</h3>
+              <span class="message-count">26</span>
+            </a>
+
+            
+
+            <a href="/login">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <h3>Logout</h3>
+            </a>
         </div>
-      </div>
-        <div class="sidebar">
-
-          <a href="/profile" class="active">
-              <i class="fa-solid fa-user"></i>
-            <h3>Profile</h3>
-          </a>
-          
-          <a href="/dashboard">
-            <i class="fa-solid fa-grip-vertical"></i>
-            <h3>Dashboard</h3>
-          </a>
-
-          <a href="/team" >
-              <i class="fa-solid fa-people-group"></i>
-            <h3>Team</h3>
-          </a>
-
-          <a href="tasks">
-            <i class="fa-regular fa-clipboard"></i>
-            <h3>Tasks</h3>
-          </a>
-
-          <a href="/analytics">
-            <i class="fa-solid fa-chart-line"></i>
-            <h3>Analytics</h3>
-          </a>
-
-          <a href="/messages">
-            <i class="fa-solid fa-comment"></i>
-            <h3>Messages</h3>
-            <span class="message-count">26</span>
-          </a>
-
-          
-
-          <a href="/login">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            <h3>Logout</h3>
-          </a>
-      </div>
-    </aside>
+      </aside>
 
     <main>
 
       <div class="wrapper">
+
+        <!--<div class="avatar-section">
+            <canvas id="avatarCanvas" width="150" height="150"></canvas>
+            <input type="file" accept="image/*" id="avatarUploadInput">
+            <button onclick="saveAvatar()">Save Avatar</button>
+          </div>-->
+          
       
           <h1>User Profile</h1>
           <div>
@@ -115,6 +122,9 @@
 
     <%- include('top.ejs') %>
 
+    <!--profile picture-->
+    <script src="../scripts/profile-avatar.js"></script>
+ 
 
   </div>
     
