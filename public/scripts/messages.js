@@ -76,7 +76,7 @@ const sendBtn = document.getElementById('send')
             const newMessage = messageBox.value
             const messageObject = { content: newMessage, sender: userName } // Construct message object
             ws.send(JSON.stringify(messageObject)) // Send message as JSON string
-            showMessage(messageObject) // Display message in the chat
+            //showMessage(messageObject) // Display message in the chat
             console.log("User name:", userName)
         }
 

@@ -5,19 +5,24 @@ document.addEventListener('DOMContentLoaded', function(){
     const btn = document.getElementById("add-task-btn")
     const closeBtn = document.querySelector(".modal-content .close")
 
+    const backgroundOverlay = document.getElementById("background-overlay")
+
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
 
     btn.onclick = function () {
         modal.style.display = "block"
+        backgroundOverlay.style.display = "block"
     }
 
     closeBtn.onclick = function () {
         modal.style.display = "none"
+        backgroundOverlay.style.display = "none"
     }
 
     window.onclick = function (event) {
         if(event.target == modal){
             modal.style.display = "none"
+            backgroundOverlay.style.display = "none"
         }
     }
 

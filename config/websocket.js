@@ -12,7 +12,7 @@ function handleWebSocket(server){
     
         // Send existing messages to the newly connected client
         messages.forEach(message => {
-            ws.send(JSON.stringify({ content: message }))
+            ws.send(JSON.stringify(message))
         })
     
         // Broadcast incoming messages to all connected clients
@@ -21,12 +21,12 @@ function handleWebSocket(server){
     
             // Parse the received JSON message
             const message = JSON.parse(data)
-            messages.push(message.content) // Store the message content in memory
+            messages.push(message) // Store the message content in memory
     
             // Broadcast the new message content to all clients
             wss.clients.forEach(function each(client) {
-                if (client !== ws && client.readyState === WebSocket.OPEN) {
-                    client.send(JSON.stringify({ content: message.content }))
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify(message))
                 }
             })
         })

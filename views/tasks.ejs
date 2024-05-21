@@ -19,7 +19,7 @@
 
       <div class="top">
         <div class="logo">
-          <img src="../images/logo.png" />
+          <img src="../images/portal-logo.png" />
           <h2>Portal</h2>
         </div>
         <div class="close" id="close-btn">
@@ -70,7 +70,13 @@
 
     <main>
 
-      <button id="add-task-btn">New Task</button>
+      <button id="add-task-btn" class="add-task-btn">
+        <i class="fa-solid fa-square-plus"></i>
+        New Task
+      </button>
+
+
+      <div id="background-overlay"></div>
 
       <!--modal form for adding a task-->
       <div id="task-modal" class="modal">
@@ -80,7 +86,75 @@
           </span>
           <h2>New Task</h2>
           <form id="task-form" action="/tasks" method="POST">
+            <div class="form-group">
+              <label for="task-name">Task Name:</label>
+              <input type="text" id="task-name" name="taskName" required>
+            </div>
 
+            <div class="form-group">
+              <label for="task-description">Task Description:</label>
+              <textarea id="task-description" name="taskDescription" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="task-assignee">Task Assignee:</label>
+              <input type="text" id="task-assignee" name="taskAssignee" required>
+            </div>
+
+            <div class="form-group">
+              <label for="task-priority">Task Priority:</label>
+              <select id="task-priority" name="taskPriority" required>
+
+                <option value="low">Low</option>
+                <option value="neutral">Neutral</option>
+                <option value="high">High</option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group">
+              <label for="task-start-date">Start Date:</label>
+              <input type="date" id="task-start-date" name="startDate" required>
+            </div>
+
+
+            <div class="form-group">
+              <label for="task-due-date">Due Date:</label>
+              <input type="date" id="task-due-date" name="dueDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="task-status">Task Status:</label>
+              <select id="task-status" name="taskStatus" required>
+
+                <option value="ready">Ready</option>
+                <option value="in-progress">In-progress</option>
+                <option value="needs-review">Needs review</option>
+                <option value="done">Done</option>
+
+              </select>
+            </div>
+
+            <button type="submit">New Task</button>
+
+          </form>
+
+        </div>
+      </div>
+
+
+
+      <!--modal form for editing a task-->
+      <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+          <h2>Edit Task</h2>
+          <form id="edit-task-form" action="/tasks/:id" method="POST">
+
+            <input type="hidden" id="edit-task-id" name="taskId">
             <label for="task-name">Task Name:</label>
             <input type="text" id="task-name" name="taskName" required>
 
@@ -99,13 +173,18 @@
 
             </select>
 
-            <label for="task-start-date">Start Date:</label>
-            <input type="date" id="task-start-date" name="startDate" required>
+            <div class="form-group">
+              <label for="task-start-date">Start Date:</label>
+              <input type="date" id="task-start-date" name="startDate" required>
+            </div>
 
-            <label for="task-due-date">Due Date:</label>
+            <div class="form-group">
+              <label for="task-due-date">Due Date:</label>
             <input type="date" id="task-due-date" name="dueDate" required>
-
-            <label for="task-status">Task Status:</label>
+            </div>
+            
+            <div class="form-group">
+              <label for="task-status">Task Status:</label>
             <select id="task-status" name="taskStatus" required>
 
               <option value="ready">Ready</option>
@@ -114,6 +193,8 @@
               <option value="done">Done</option>
 
             </select>
+            </div>
+            
 
             <button type="submit">New Task</button>
 
@@ -123,11 +204,7 @@
       </div>
 
 
-    
-    
 
-
-      
 
       <div class="col-container">
 
@@ -215,7 +292,7 @@
               <p>
                 Due Date: <%= task.dueDate %>
               </p>
-              
+
               <button type="submit" class="delete-task-btn" data-task-id="<%= task._id %>">
                 <i class="fa-solid fa-trash"></i>
               </button>

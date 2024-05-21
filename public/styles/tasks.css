@@ -1,16 +1,42 @@
+@import url('variables.css');
+
+main{
+    margin-top: 4.5rem;
+    width: 100%;
+}
+
+#background-overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+
+}
+
 
 /* modal styles */
-
-#task-modal{
+#task-modal, #edit-task-modal{
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: black;
-    background-color: white;
+    color: var(--color-dark);
+    background-color: var(--color-aside);
     border: 1px solid black;
     z-index: 1000;
+
+    width: 70%;
+    max-width: 600px;
+    height: 80%;
+    max-height: 80vh;
+    overflow-y: auto;
+
 }
 
 .modal-content{
@@ -24,6 +50,29 @@
 .close i{
     display: block;
 }
+
+.form-group{
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width: cals(100% - 40px);
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
 
 
 /* display tasks styles */
@@ -49,11 +98,24 @@
 }
 
 .card{
-    background-color: white;
+    height: 200px;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    background-color: var(--color-white);
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    color: black;
+    color: var(--color-dark);
+    box-shadow: 1rem 1rem 1rem var(--color-light);
+    transition: all 300ms ease;
+    backdrop-filter: blur(20px);
+}
+
+
+.card:hover {
+    box-shadow: none;
 }
 
 .delete-task-btn{
@@ -63,7 +125,55 @@
     cursor: pointer;
 }
 
+.edit-task-btn{
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
 
+.add-task-btn{
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: var(--color-aside);
+    color: var(--color-dark);
+    box-shadow: 0.5rem 0.5rem 0.5rem var(--color-light);
+    transition: all 300ms ease;
+    backdrop-filter: blur(20px);
+}
+
+
+.add-task-btn:hover {
+    box-shadow: none;
+}
+
+/* responsive design */
+
+@media(max-width: 992px){
+
+    main{
+        margin-top: 6.5rem;
+    }
+
+    /*.card{
+        height: 200px;
+        width: 100px;
+    }
+*/
+    
+}
+
+
+@media(max-width: 576px) {
+    
+    /*.card{
+        height: 200px;
+        width: 100px;
+    }*/
+    
+}
 
 
 

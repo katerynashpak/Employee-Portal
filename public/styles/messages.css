@@ -1,7 +1,53 @@
 
+main{
+    margin-top: 4.5rem;
+    margin-left: 2rem;
+    width: 120%;
+    min-width: 30rem;
+    padding: 20px;
+}
 
 #messages{
     background-color: white;
     color: black;
+    height: 400px;
+    overflow: scroll;
 }
 
+#messageBox{
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+#send{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+
+}
+
+#pre{
+    background-image: url('../images/pexels-scott-webb-213727.jpg');
+}
+
+@media(max-width: 992px){
+
+    main{
+        width: 70%;
+    }
+    
+}
+
+
+@media(max-width: 576px) {
+    
+    
+}
