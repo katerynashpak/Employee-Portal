@@ -90,7 +90,7 @@ main{
     padding: 10px;
     border-radius: 5px;
 
-
+    
 }
 
 .col h2{
@@ -118,13 +118,7 @@ main{
     box-shadow: none;
 }
 
-.delete-task-btn{
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
+.delete-task-btn, 
 .edit-task-btn{
     border: none;
     padding: 5px 10px;
@@ -157,21 +151,36 @@ main{
         margin-top: 6.5rem;
     }
 
-    /*.card{
-        height: 200px;
-        width: 100px;
+    .col-container{
+        flex-direction: column;
     }
-*/
+
+    .col{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .col h2{
+        width: 100%;
+    }
     
 }
 
 
-@media(max-width: 576px) {
+@media(max-width: 400px) {
     
-    /*.card{
-        height: 200px;
-        width: 100px;
-    }*/
+    .col{
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .card{
+        flex: 0 0 auto;
+        margin-right: 10px;
+        
+    }
     
 }
 

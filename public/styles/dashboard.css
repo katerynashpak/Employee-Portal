@@ -5,22 +5,22 @@ body {
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
     font-size: 0.88rem;
-    background: var(--color-background);
-    
+    background-image: var(--bg-img);
     background-size: cover;
-    background-position: left;
+    background-position: center;
+
     user-select: none;
     overflow-x: hidden;
     color: var(--color-dark);
     margin: 0;
-    padding-left: 40px;
+    padding: 0;
 
 }
 
 
 .container {
     display: grid;
-    width: 96%;
+    width: 90%;
     margin: 0;
     gap: 1.8rem;
     grid-template-columns: 14rem auto 23rem;

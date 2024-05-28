@@ -1,3 +1,4 @@
+@import url('variables.css');
 
 * {
     margin: 0;
@@ -12,14 +13,14 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: white;
-    background-image: url('../images/pexels-maureen-bekker-1207966.jpg');
+    background-image: url('../images/pink-blue-bg.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .wrapper{
     width: 420px;
-    background-color: rgba(194, 191, 217, 0.4);
+    background-color: rgba(194, 191, 217, 0.6);
     border: 2px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
     color: white;

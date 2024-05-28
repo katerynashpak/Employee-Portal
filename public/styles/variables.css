@@ -19,6 +19,7 @@
     --padding-1: 1.2rem;
     --box-shadow: 0 2rem 3rem rgba(69, 64, 67, 0.4);
     --color-aside: #f172a1;
+    --bg-img: url('../images/pink-blue-bg.jpg');
 }
 
 
@@ -30,4 +31,5 @@
     --color-light: rgba(136, 17, 97, 0.4);
     --color-aside: #53152c;
     --box-shadow: 0 2rem 3rem var(--color-light);
+    --bg-img: url('../images/pink-blue-bg-dark.jpg');
 }

@@ -239,6 +239,15 @@ app.get('/tasks', checkAuthenticated, (req, res) => {
     }
 })
 
+app.get('/api/tasks', checkAuthenticated, async (req, res) => {
+    try {
+        const tasks = await Task.find()
+        res.json(tasks)
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+})
+
 
 app.get('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
@@ -278,13 +287,16 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
             return res.status(400).json({ message: 'Invalid status value' })
         }
 
+        const formattedStartDate = new Date(req.body.startDate).toISOString().split('T')[0]
+        const formattedDueDate = new Date(req.body.dueDate).toISOString().split('T')[0]
+
         const task = new Task({
             name: req.body.taskName,
             description: req.body.taskDescription,
             taskAssignee: user._id, //assign ObjectId to user
             priority: req.body.taskPriority,
-            startDate: req.body.startDate,
-            dueDate: req.body.dueDate,
+            startDate: formattedStartDate,
+            dueDate: formattedDueDate, 
             status: req.body.taskStatus
         })
 

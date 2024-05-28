@@ -18,7 +18,7 @@ const sendBtn = document.getElementById('send')
                 const content = message.content
                 const textColor = getUserColor(sender)
 
-                messages.innerHTML += `<div class="message" style="color: ${textColor}">${sender}: ${content}</div>`
+                messages.innerHTML += `<div class="message" style="color: ${textColor}" > ${sender}: ${content}</div>`
                 //messages.textContent += `\n\n${sender}: ${content}`
                 
             }

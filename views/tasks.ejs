@@ -93,12 +93,14 @@
 
             <div class="form-group">
               <label for="task-description">Task Description:</label>
-              <textarea id="task-description" name="taskDescription" required></textarea>
+              <textarea id="task-description" name="taskDescription"></textarea>
             </div>
 
             <div class="form-group">
               <label for="task-assignee">Task Assignee:</label>
-              <input type="text" id="task-assignee" name="taskAssignee" required>
+              <select id="task-assignee" name="taskAssignee" required>
+                <option value="" disabled selected>Select assignee</option>
+              </select>
             </div>
 
             <div class="form-group">
@@ -155,48 +157,61 @@
           <form id="edit-task-form" action="/tasks/:id" method="POST">
 
             <input type="hidden" id="edit-task-id" name="taskId">
-            <label for="task-name">Task Name:</label>
-            <input type="text" id="task-name" name="taskName" required>
-
-            <label for="task-description">Task Description:</label>
-            <textarea id="task-description" name="taskDescription" required></textarea>
-
-            <label for="task-assignee">Task Assignee:</label>
-            <input type="text" id="task-assignee" name="taskAssignee" required>
-
-            <label for="task-priority">Task Priority:</label>
-            <select id="task-priority" name="taskPriority" required>
-
-              <option value="low">Low</option>
-              <option value="neutral">Neutral</option>
-              <option value="high">High</option>
-
-            </select>
 
             <div class="form-group">
-              <label for="task-start-date">Start Date:</label>
-              <input type="date" id="task-start-date" name="startDate" required>
+              <label for="edit-task-name">Task Name:</label>
+              <input type="text" id="edit-task-name" name="taskName" required>
             </div>
 
             <div class="form-group">
-              <label for="task-due-date">Due Date:</label>
-            <input type="date" id="task-due-date" name="dueDate" required>
+              <label for="edit-task-description">Task Description:</label>
+              <textarea id="edit-task-description" name="taskDescription"></textarea>
             </div>
-            
+
+
             <div class="form-group">
-              <label for="task-status">Task Status:</label>
-            <select id="task-status" name="taskStatus" required>
-
-              <option value="ready">Ready</option>
-              <option value="in-progress">In-progress</option>
-              <option value="needs-review">Needs review</option>
-              <option value="done">Done</option>
-
-            </select>
+              <label for="edit-task-assignee">Task Assignee:</label>
+              <select id="edit-task-assignee" name="taskAssignee" required>
+                <option value="" disabled selected>Select assignee</option>
+              </select>
             </div>
-            
 
-            <button type="submit">New Task</button>
+            <div class="form-group">
+              <label for="edit-task-priority">Task Priority:</label>
+              <select id="edit-task-priority" name="taskPriority" required>
+
+                <option value="low">Low</option>
+                <option value="neutral">Neutral</option>
+                <option value="high">High</option>
+
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="edit-task-start-date">Start Date:</label>
+              <input type="date" id="edit-task-start-date" name="startDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="edit-task-due-date">Due Date:</label>
+              <input type="date" id="task-due-date" name="dueDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="edit-task-status">Task Status:</label>
+              <select id="edit-task-status" name="taskStatus" required>
+
+                <option value="ready">Ready</option>
+                <option value="in-progress">In-progress</option>
+                <option value="needs-review">Needs review</option>
+                <option value="done">Done</option>
+
+              </select>
+            </div>
+
+
+            <button type="submit">Save Changes</button>
 
           </form>
 
@@ -319,13 +334,11 @@
   <!--delete task-->
   <script src="../scripts/delete-task.js"></script>
 
-  <!--display tasks-->
-  <script src="../scripts/display-tasks.js"></script>
 
   <!--edit task-->
   <script src="../scripts/edit-task.js"></script>
 
-  <!--edit task-->
+  <!--drag and drop task task-->
   <script src="../scripts/drag-and-drop.js"></script>
 
 </body>
