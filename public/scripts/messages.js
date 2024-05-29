@@ -3,6 +3,7 @@ const sendBtn = document.getElementById('send')
         const messageBox = document.getElementById('messageBox')
 
         let ws
+        
         //let userName = '<%= name %>'
         let userColors = {}
 

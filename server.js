@@ -109,8 +109,8 @@ app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated bef
 
 app.get('/profile', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
-        const { _id, name, email, birthday, jobTitle, department } = req.user
-        res.render('profile.ejs', { id: _id, name, email, birthday, jobTitle, department })
+        const { _id, name, email, birthday, jobTitle, department, avatar } = req.user
+        res.render('profile.ejs', { id: _id, name, email, birthday, jobTitle, department, avatar })
     } catch (err) {
         res.status(500).send('Error rendering profile page')
     }
@@ -119,8 +119,8 @@ app.get('/profile', checkAuthenticated, (req, res) => {    //check if authentica
 
 app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
-        const { _id, name, email, birthday, jobTitle, department } = req.user
-        res.render('update-profile.ejs', { id: _id, name, email, birthday, jobTitle, department })
+        const { _id, name, email, birthday, jobTitle, department, avatar } = req.user
+        res.render('update-profile.ejs', { id: _id, name, email, birthday, jobTitle, department, avatar })
     } catch (err) {
         res.status(500).send('Error rendering profile update page')
     }
@@ -140,6 +140,8 @@ app.post('/profile', checkAuthenticated, async (req, res) => {
         user.birthday = req.body.birthday || user.birthday
         user.jobTitle = req.body.jobTitle || user.jobTitle
         user.department = req.body.department || user.department
+        user.avatar = req.body.avatar || user.avatar
+
 
         const updatedUser = await user.save()
 
@@ -172,6 +174,7 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
         user.birthday = req.body.birthday || user.birthday
         user.jobTitle = req.body.jobTitle || user.jobTitle
         user.department = req.body.department || user.department
+        user.avatar = req.body.avatar || user.avatar
 
         const updatedUser = await user.save()
 
@@ -189,7 +192,41 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
 
 })
 
+//profile avatar
+app.post('/profile/avatar', checkAuthenticated, async (req, res) => {
+    try{
+        const userId = req.user.id;
+        const user = await User.findById(userId)
+        if(!user)
+            return res.status(404).json({message: 'Cannot find user'})
 
+        user.avatar = req.body.avatarData
+
+        const updatedUser = await user.save()
+        if (!updatedUser)
+            return res.status(500).json({message: 'Failed to update user avatar'})
+
+        console.log('Avatar saved successfully: ', updatedUser)
+        res.sendStatus(200)
+    } catch (err){
+        console.error('Error saving avatar: ', err.message)
+        res.status(500).json({message: err.message})
+    }
+    
+})
+
+app.get('/profile/avatar', checkAuthenticated, async (req, res) => {
+    try{
+        const userId = req.user.id
+        const user = await User.findById(userId)
+        if(!user)
+            return res.status(404).json({message: 'Cannot find user'})
+        res.json({avatar: user.avatar})
+    } catch (err) {
+        console.error('Error fetching avatar: ', err.message)
+        res.status(500).json({message: err.message})
+    }
+})
 
 
 //messages
@@ -239,26 +276,16 @@ app.get('/tasks', checkAuthenticated, (req, res) => {
     }
 })
 
-app.get('/api/tasks', checkAuthenticated, async (req, res) => {
-    try {
-        const tasks = await Task.find()
-        res.json(tasks)
-    } catch (err) {
-        res.status(500).json({message: err.message})
-    }
-})
-
-
 app.get('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
         const taskId = req.params.id
         const task = await Task.findById(taskId)
         if (!task) {
-            return res.status(404).send('Task not found')
+            return res.status(404).json({ message: 'Task not found'})
         }
-        res.render('tasks.ejs', { task: task })
+        res.json(task)
     } catch (err) {
-        res.status(500).send('Error rendering task')
+        res.status(500).json({ message: 'Error rendering task'})
     }
 })
 
@@ -310,66 +337,54 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
 
 app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
+        const taskId = req.params.id;
+        console.log(`Updating task with ID: ${taskId}`);
+        console.log('Request body:', req.body);
 
-        const taskId = req.params.id
-        const task = await Task.findById(taskId)
-        if(!task){
-            return res.status(400).json({ message: 'Task not found' })
+        const task = await Task.findById(taskId);
+        if (!task) {
+            return res.status(400).json({ message: 'Task not found' });
         }
 
-        
-
-        //taskAssignee validation
+        // Task Assignee validation
         if (req.body.taskAssignee) {
-            const user = await User.findById(req.body.taskAssignee)
+            console.log(`Validating task assignee: ${req.body.taskAssignee}`);
+            const user = await User.findById(req.body.taskAssignee);
             if (!user) {
-                return res.status(400).json({ message: 'Invalid task assignee' })
+                return res.status(400).json({ message: 'Invalid task assignee' });
             }
         }
 
-        //priority validation
-        const allowedPriority = ['low', 'neutral', 'high']
+        // Priority validation
+        const allowedPriority = ['low', 'neutral', 'high'];
         if (req.body.priority && !allowedPriority.includes(req.body.priority)) {
-            return res.status(400).json({ message: 'Invalid priority value' })
+            return res.status(400).json({ message: 'Invalid priority value' });
         }
 
-        //status validation
-        const allowedStatus = ['ready', 'in-progress', 'needs-review', 'done']
+        // Status validation
+        const allowedStatus = ['ready', 'in-progress', 'needs-review', 'done'];
         if (req.body.status && !allowedStatus.includes(req.body.status)) {
-            return res.status(400).json({ message: 'Invalid status value' })
+            return res.status(400).json({ message: 'Invalid status value' });
         }
 
-        if (req.body.name) {
-            task.name = req.body.name
-        }
-        if (req.body.description) {
-            task.description = req.body.description
-        }
-        if (req.body.taskAssignee) {
-            task.taskAssignee = req.body.taskAssignee
-        }
-        if (req.body.priority) {
-            task.priority = req.body.priority
-        }
-        if (req.body.startDate) {
-            task.startDate = req.body.startDate
-        }
-        if (req.body.dueDate) {
-            task.dueDate = req.body.dueDate
-        }
-        if (req.body.status) {
-            task.status = req.body.status
-        }
+        
+        // Update task fields
+        if (req.body.taskName) task.name = req.body.taskName;
+        if (req.body.taskDescription) task.description = req.body.taskDescription;
+        if (req.body.taskAssignee) task.taskAssignee = req.body.taskAssignee;
+        if (req.body.taskPriority) task.priority = req.body.taskPriority;
+        if (req.body.startDate) task.startDate = req.body.startDate;
+        if (req.body.dueDate) task.dueDate = req.body.dueDate;
+        if (req.body.taskStatus) task.status = req.body.taskStatus;
 
-        const updatedTask = await task.save()
-
-        res.json(updatedTask)
-
+        const updatedTask = await task.save();
+        res.json(updatedTask);
+        console.log(`Task updated successfully: ${updatedTask}`);
     } catch (err) {
-        res.status(400).json({ message: err.message })
-
+        console.error('Error updating task:', err);
+        res.status(400).json({ message: err.message });
     }
-})
+});
 
 
 //delete a task
