@@ -1,8 +1,14 @@
 
+body{
+    background-position: left;
+
+}
+
+
 main{
     margin-top: 4.5rem;
     margin-left: 2rem;
-    width: 120%;
+    
     min-width: 30rem;
     padding: 20px;
 }
@@ -11,7 +17,7 @@ main{
     background-color: rgb(255, 255, 255);
     color: black;
     height: 400px;
-    width: 340px;
+    width: 800px;
     overflow-y: auto;
     padding: 10px;
     box-sizing: border-box;
@@ -46,16 +52,21 @@ main{
 }
 
 
-@media(max-width: 992px){
-
-    main{
-        width: 70%;
+@media(max-width: 730px){
+    
+    #messages{
+        height: 400px;
+        width: 450px;
     }
     
 }
 
 
 @media(max-width: 430px) {
-    
-    
+
+
+    #messages{
+        height: 400px;
+        width: 340px;
+    }
 }

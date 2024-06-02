@@ -26,5 +26,10 @@ main .wrapper h3 p{
     display: inline;
 }
 
+#avatarCanvas {
+    border-radius: 50%;
+}
+
+
 
 

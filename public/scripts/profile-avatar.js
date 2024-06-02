@@ -1,10 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
-
+document.addEventListener('DOMContentLoaded', function(){
     const canvas = document.getElementById('avatarCanvas')
     const ctx = canvas.getContext('2d') //2D
     const avatarUploadInput = document.getElementById('avatarUploadInput')
+    const saveAvatarButton = document.getElementById('saveAvatarButton')
 
     avatarUploadInput.addEventListener('change', handleAvatarUpload)
+    saveAvatarButton.addEventListener('click', saveAvatar)
 
     function handleAvatarUpload(event) {
         const file = event.target.files[0]
@@ -23,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function saveAvatar() {
-        const dataURL = canvas.toDataURL('image/png')
+        const dataURL = canvas.toDataURL('image/png') || canvas.toDataURL('image/jpeg')
 
         fetch('/profile/avatar', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -57,5 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
     .catch(error => console.error('Error fetching avatar: ', error))
+
 
 })

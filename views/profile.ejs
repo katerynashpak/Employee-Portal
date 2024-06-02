@@ -3,116 +3,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
   <link rel="stylesheet" type="text/css" href="/styles/profile.css" />
-  
+
 
 
 </head>
+
 <body>
-    <div class="container">
+  <div class="container">
 
-      <aside>
-        
-        <div class="top">
-          <div class="logo">
-            <img src="../images/portal-logo.png"/>
-            <h2>Portal</h2>
-          </div>
-          <div class="close" id="close-btn">
-            <i class="fa-solid fa-xmark"></i>
-          </div>
+    <aside>
+
+      <div class="top">
+        <div class="logo">
+          <img src="../images/portal-logo.png" />
+          <h2>Portal</h2>
         </div>
-          <div class="sidebar">
-
-            <a href="/profile" class="active">
-                <i class="fa-solid fa-user"></i>
-              <h3>Profile</h3>
-            </a>
-            
-            <a href="/dashboard">
-              <i class="fa-solid fa-grip-vertical"></i>
-              <h3>Dashboard</h3>
-            </a>
-
-            <a href="/team" >
-                <i class="fa-solid fa-people-group"></i>
-              <h3>Team</h3>
-            </a>
-
-            <a href="tasks">
-              <i class="fa-regular fa-clipboard"></i>
-              <h3>Tasks</h3>
-            </a>
-
-            <a href="/analytics">
-              <i class="fa-solid fa-chart-line"></i>
-              <h3>Analytics</h3>
-            </a>
-
-            <a href="/messages">
-              <i class="fa-solid fa-comment"></i>
-              <h3>Messages</h3>
-              <span class="message-count">26</span>
-            </a>
-
-            
-
-            <a href="/login">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              <h3>Logout</h3>
-            </a>
+        <div class="close" id="close-btn">
+          <i class="fa-solid fa-xmark"></i>
         </div>
-      </aside>
+      </div>
+      <div class="sidebar">
+
+        <a href="/profile" class="active">
+          <i class="fa-solid fa-user"></i>
+          <h3>Profile</h3>
+        </a>
+
+        <a href="/dashboard">
+          <i class="fa-solid fa-grip-vertical"></i>
+          <h3>Dashboard</h3>
+        </a>
+
+        <a href="/team">
+          <i class="fa-solid fa-people-group"></i>
+          <h3>Team</h3>
+        </a>
+
+        <a href="tasks">
+          <i class="fa-regular fa-clipboard"></i>
+          <h3>Tasks</h3>
+        </a>
+
+        <a href="/analytics">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>Analytics</h3>
+        </a>
+
+        <a href="/messages">
+          <i class="fa-solid fa-comment"></i>
+          <h3>Messages</h3>
+          <span class="message-count">26</span>
+        </a>
+
+
+
+        <a href="/login">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <h3>Logout</h3>
+        </a>
+      </div>
+    </aside>
 
     <main>
 
       <div class="wrapper">
 
-          <div class="avatar-section">
-            <canvas id="avatarCanvas" width="150" height="150"></canvas>
-            <input type="file" accept="image/*" id="avatarUploadInput">
-            <button onclick="saveAvatar()">Save Avatar</button>
-          </div>
-          
-      
-          <h1>User Profile</h1>
-          <div>
-            <div class="name">
-              <h><strong>Name:</strong></h3><p><%= name %></p>
-            </div>
-            
-            <div class="email">
+        <div class="avatar-section">
+          <canvas id="avatarCanvas" width="150" height="150"></canvas>
+          <input type="file" accept="image/*" id="avatarUploadInput">
+          <button id="saveAvatarButton">Save Avatar</button>
+        </div>
+
+
+        <h1>User Profile</h1>
+        <div>
+          <div class="name">
+            <h><strong>Name:</strong></h3>
               <p>
-                <strong>Email:</strong> <%= email %>
+                <%= name %>
               </p>
-            </div>
-            
-            <div class="dob">
-              <p>
-                <strong>Birthday:</strong> <%= birthday ? birthday.toISOString().split('T')[0] : 'N/A' %>
-              </p>
-            </div>
-            
-            <div class="job-title">
-              <p>
-                <strong>Job Title:</strong> <%= jobTitle || 'N/A' %>
-              </p>
-            </div>
-            
-            <div class-="department">
-              <p>
-                <strong>Department:</strong> <%= department || 'N/A' %>
-              </p>
-            </div>
-            
           </div>
 
-        
+          <div class="email">
+            <p>
+              <strong>Email:</strong>
+              <%= email %>
+            </p>
+          </div>
+
+          <div class="dob">
+            <p>
+              <strong>Birthday:</strong>
+              <%= birthday ? birthday.toISOString().split('T')[0] : 'N/A' %>
+            </p>
+          </div>
+
+          <div class="job-title">
+            <p>
+              <strong>Job Title:</strong>
+              <%= jobTitle || 'N/A' %>
+            </p>
+          </div>
+
+          <div class-="department">
+            <p>
+              <strong>Department:</strong>
+              <%= department || 'N/A' %>
+            </p>
+          </div>
+
+        </div>
+
+
       </div>
 
       <!-- Update button to initiate profile update -->
@@ -122,12 +128,12 @@
 
     <%- include('top.ejs') %>
 
-    <!--profile picture-->
-    <script src="../scripts/profile-avatar.js"></script>
- 
+
+
 
   </div>
-    
-  
-  
+
+  <!--profile picture-->
+  <script src="../scripts/profile-avatar.js"></script>
+
 </body>

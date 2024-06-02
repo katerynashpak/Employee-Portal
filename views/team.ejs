@@ -1,92 +1,112 @@
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-      />
-    <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
-  
-  </head>
-  
-  
-  <body>
-    <div class="container">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/team.css" />
 
-        <aside>
-          
-          <div class="top">
-            <div class="logo">
-              <img src="../images/portal-logo.png"/>
-              <h2>Portal</h2>
-            </div>
-            <div class="close" id="close-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-          </div>
-            <div class="sidebar">
-    
-              <a href="/profile">
-                  <i class="fa-solid fa-user"></i>
-                <h3>Profile</h3>
-              </a>
-              
-              <a href="/dashboard">
-                <i class="fa-solid fa-grip-vertical"></i>
-                <h3>Dashboard</h3>
-              </a>
-    
-              <a href="/team" class="active">
-                  <i class="fa-solid fa-people-group"></i>
-                <h3>Team</h3>
-              </a>
-    
-              <a href="tasks">
-                <i class="fa-regular fa-clipboard"></i>
-                <h3>Tasks</h3>
-              </a>
-    
-              <a href="/analytics">
-                <i class="fa-solid fa-chart-line"></i>
-                <h3>Analytics</h3>
-              </a>
-    
-              <a href="/messages">
-                <i class="fa-solid fa-comment"></i>
-                <h3>Messages</h3>
-                <span class="message-count">26</span>
-              </a>
-    
-              
-    
-              <a href="/login">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <h3>Logout</h3>
-              </a>
-          </div>
-        </aside>
-    
-        <main>
-    
-          <div class="wrapper">
-          
-            <h1>My coworkers & I</h1>
-            
-            <div>
-              
+</head>
 
-            </div>
-              
-    
-            
-          </div>
-    
-        </main>
-    
-        <%- include('top.ejs') %>
-    
-    
+
+<body>
+  <div class="container">
+
+    <aside>
+
+      <div class="top">
+        <div class="logo">
+          <img src="../images/portal-logo.png" />
+          <h2>Portal</h2>
+        </div>
+        <div class="close" id="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
       </div>
-  </body>
+      <div class="sidebar">
+
+        <a href="/profile">
+          <i class="fa-solid fa-user"></i>
+          <h3>Profile</h3>
+        </a>
+
+        <a href="/dashboard">
+          <i class="fa-solid fa-grip-vertical"></i>
+          <h3>Dashboard</h3>
+        </a>
+
+        <a href="/team" class="active">
+          <i class="fa-solid fa-people-group"></i>
+          <h3>Team</h3>
+        </a>
+
+        <a href="tasks">
+          <i class="fa-regular fa-clipboard"></i>
+          <h3>Tasks</h3>
+        </a>
+
+        <a href="/analytics">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>Analytics</h3>
+        </a>
+
+        <a href="/messages">
+          <i class="fa-solid fa-comment"></i>
+          <h3>Messages</h3>
+          <span class="message-count">26</span>
+        </a>
+
+
+
+        <a href="/login">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <h3>Logout</h3>
+        </a>
+      </div>
+    </aside>
+
+    <main>
+
+      <div class="wrapper">
+
+        <h1>My team</h1>
+
+        <div class="user-cards">
+
+
+          <% users.forEach(user=> { %>
+
+            <div class="user-card">
+              <img src="<%= user.avatar %>" alt="<%= user.name %>'s profile picture">
+              <div class="user-info">
+
+                <span class="user-name">
+                  <%= user.name %>
+                </span>
+
+                <span class="user-email">
+                  <a href="mailto:<%= user.email %>">
+                    <%= user.email %>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+
+
+          <% }); %>
+
+        </div>
+
+
+
+      </div>
+
+    </main>
+
+    <%- include('top.ejs') %>
+
+  </div>
+</body>
