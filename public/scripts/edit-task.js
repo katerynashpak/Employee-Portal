@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.onclick = function (event) {
         if (event.target === editModal) {
             editModal.style.display = "none";
-            backgroundOverlay.style.display = "none";
+            backgroundOverlay.style.display = "none"
         }
     };
 

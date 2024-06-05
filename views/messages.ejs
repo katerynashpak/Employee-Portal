@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -33,7 +34,7 @@
 
             <div class="sidebar">
 
-                <a href="/profile" class="active">
+                <a href="/profile">
                     <i class="fa-solid fa-user"></i>
                     <h3>Profile</h3>
                 </a>
@@ -58,7 +59,7 @@
                     <h3>Analytics</h3>
                 </a>
 
-                <a href="/messages">
+                <a href="/messages" class="active">
                     <i class="fa-solid fa-comment"></i>
                     <h3>Messages</h3>
                     <span class="message-count">26</span>
@@ -75,26 +76,30 @@
 
         <main>
             <h1>Real Time Messaging</h1>
-            <pre id="messages"></pre>
-            
-            <input type="text" id="messageBox" placeholder="Type your message here"/>
-            <button id="send" title="Send Message">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
+
+            <div class="wrapper">
+                <pre id="messages"></pre>
+
+                <input type="text" id="messageBox" placeholder="Type your message here" />
+                <button id="send" title="Send Message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+
         </main>
 
         <%- include('top.ejs') %>
 
 
 
-        <script>
-            // Define a JavaScript variable and set it to the user's name from the server-side
-            var userName = '<%= name %>';
-        </script>
-        
-        <!--messages functionality-->
-        <script src="../scripts/messages.js"></script>
-        
+            <script>
+                // Define a JavaScript variable and set it to the user's name from the server-side
+                var userName = '<%= name %>';
+            </script>
+
+            <!--messages functionality-->
+            <script src="../scripts/messages.js"></script>
+
 </body>
 
 </html>

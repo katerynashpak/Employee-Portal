@@ -1,20 +1,16 @@
 @import url('variables.css');
 
-main{
+main {
 
     margin-left: 2rem;
-    
-    min-width: 30rem;
-    padding: 20px;
+
+
 }
 
-h1 {
-    text-align: center;
-}
 
 .wrapper {
     margin: 20px auto;
-    
+
 }
 
 
@@ -23,7 +19,7 @@ h1 {
     flex-wrap: wrap;
     gap: 5px;
     color: white;
-    font-weight: bold;
+
 }
 
 .user-card {
@@ -33,12 +29,12 @@ h1 {
     padding: 10px;
     display: flex;
     align-items: center;
-    background-color: var(--color-white);
+    background-color: var(--color-aside);
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     transition: all 300ms ease;
     backdrop-filter: blur(20px);
-    
+
 }
 
 .user-card:hover {
@@ -63,8 +59,46 @@ h1 {
     margin-bottom: 5px;
 }
 
-.user-email a:hover{
+.user-email a:hover {
     color: var(--color-primary);
     cursor: pointer;
 }
 
+/* Responsive design */
+
+@media(max-width: 992px) {
+
+    main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+
+    .user-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-card {
+        width: 90%;
+        margin: 10px 0;
+    }
+}
+
+
+@media(max-width: 400px) {
+
+    .user-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-card img {
+        width: 40px;
+        height: 40px;
+    }
+
+}

@@ -1,5 +1,6 @@
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -7,6 +8,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="/styles/dashboard.css" />
   <link rel="stylesheet" type="text/css" href="/styles/profile.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/modal.css" />
+
 
 
 
@@ -70,20 +73,17 @@
 
     <main>
 
+      <h1>User Profile</h1>
+
       <div class="wrapper">
-
-        <div class="avatar-section">
-          <canvas id="avatarCanvas" width="150" height="150"></canvas>
-          <input type="file" accept="image/*" id="avatarUploadInput">
-          <button id="saveAvatarButton">Save Avatar</button>
-        </div>
-
-
-        <h1>User Profile</h1>
         <div>
+          
+          <canvas id="avatarCanvas" width="150" height="150"></canvas>
+          
           <div class="name">
-            <h><strong>Name:</strong></h3>
+            
               <p>
+                <strong>Name:</strong>
                 <%= name %>
               </p>
           </div>
@@ -115,25 +115,85 @@
               <%= department || 'N/A' %>
             </p>
           </div>
-
+          <!-- Update button to initiate profile update -->
+          <button type="button" class="edit-profile-btn">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
         </div>
 
-
       </div>
-
-      <!-- Update button to initiate profile update -->
-      <a href="/profile/update">Update</a>
 
     </main>
 
     <%- include('top.ejs') %>
 
+    <div id="background-overlay"></div>
+      <div id="avatar-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+          <h2>Edit Profile Picture</h2>
+          <input type="file" accept="image/*" id="avatarUploadInput">
+          <button id="saveAvatarButton">Save Avatar</button>
+        </div>
 
+      </div>
+
+
+
+      <!--modal form for editing profile-->
+      <div id="edit-profile-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+          <h2>Edit Profile</h2>
+          <form id="edit-profile-form" action="/profile" method="POST">
+
+            <input type="hidden" id="edit-profile-id" name="profileId">
+
+            <div class="form-group">
+              <label for="edit-profile-name">Name:</label>
+              <input type="text" id="edit-profile-name" name="profileName">
+            </div>
+
+            <div class="form-group">
+              <label for="edit-profile-email">Email:</label>
+              <textarea id="edit-profile-email" name="profileEmail"></textarea>
+            </div>
+
+
+            <div class="form-group">
+              <label for="edit-profile-birthday">Birthday:</label>
+              <input type="date" id="edit-profile-birthday" name="profileBirthday">
+            </div>
+
+            <div class="form-group">
+              <label for="edit-profile-jobTitle">Job Title:</label>
+              <textarea id="edit-profile-jobTitle" name="profileJobTitle"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="edit-profile-department">Department:</label>
+              <textarea id="edit-profile-department" name="profileDepartment"></textarea>
+            </div>
+
+            <button type="submit">Save Changes</button>
+
+          </form>
+        </div>
+      </div>
+      
 
 
   </div>
 
   <!--profile picture-->
   <script src="../scripts/profile-avatar.js"></script>
+  <script src="../scripts/edit-avatar.js"></script>
+
+  <script src="../scripts/edit-profile.js"></script>
+  
 
 </body>

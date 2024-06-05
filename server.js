@@ -120,12 +120,13 @@ app.get('/profile', checkAuthenticated, (req, res) => {    //check if authentica
 app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
         const { _id, name, email, birthday, jobTitle, department, avatar } = req.user
-        res.render('update-profile.ejs', { id: _id, name, email, birthday, jobTitle, department, avatar: req.user.avatar })
+        res.json({ id: _id, name, email, birthday, jobTitle, department, avatar: req.user.avatar })
     } catch (err) {
-        res.status(500).send('Error rendering profile update page')
+        res.status(500).json({message: 'Error rendering profile update page'})
     }
 
 })
+
 
 app.post('/profile', checkAuthenticated, async (req, res) => {
     try {
@@ -169,11 +170,11 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
             return res.status(404).json({ message: 'Cannot find user' })
 
 
-        user.name = req.body.name || user.name
-        user.email = req.body.email || user.email
-        user.birthday = req.body.birthday || user.birthday
-        user.jobTitle = req.body.jobTitle || user.jobTitle
-        user.department = req.body.department || user.department
+        user.name = req.body.profileName || user.name
+        user.email = req.body.profileEmail || user.email
+        user.birthday = req.body.profileBirthday || user.birthday
+        user.jobTitle = req.body.profileJobTitle || user.jobTitle
+        user.department = req.body.profileDepartment || user.department
         user.avatar = req.body.avatar || user.avatar
 
         const updatedUser = await user.save()
@@ -183,11 +184,11 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
         }
 
         console.log('User updated successfully:', updatedUser)
-        res.redirect('/profile')
+        return res.json({message: 'Profile updated successfully', user: updatedUser})
 
     } catch (err) {
         console.error('Error updating user:', err.message)
-        res.status(500).json({ message: err.message })
+        return res.status(500).json({ message: err.message })
     }
 
 })

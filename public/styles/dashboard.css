@@ -20,7 +20,7 @@ body {
 
 .container {
     display: grid;
-    width: 90%;
+    width: 97%;
     margin: 0;
     gap: 1.8rem;
     grid-template-columns: 14rem auto 23rem;
@@ -46,6 +46,7 @@ img {
 h1 {
     font-weight: 800;
     font-size: 1.8rem;
+    text-align: center;
 }
 
 h2 {
@@ -144,7 +145,7 @@ aside {
         aside .logo img {
             width: 3rem;
             height: 3rem;
-            border-radius: 30%;
+            border-radius: var(--card-border-radius);
         }
 
     aside .close {
@@ -160,7 +161,7 @@ aside {
         top: 3rem;
         background: var(--color-aside);
         
-        border-radius: 10px;
+        border-radius: var(--card-border-radius);
         
     }
 
@@ -742,6 +743,7 @@ main {
             position: fixed;
             top: 0;
             left: 0;
+            gap: 8rem;
             align-items: center;
             padding: 0 0.8rem;
             height: 4.6rem;
@@ -753,7 +755,7 @@ main {
         }
 
             .right .top .theme-toggler {
-                width: 4.4rem;
+                width: 3.5rem;
                 position: absolute;
                 left: 66%
             }
@@ -775,4 +777,6 @@ main {
             .right .top button i {
                 font-size: 2rem;
             }
+
+        
 }

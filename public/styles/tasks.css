@@ -1,106 +1,37 @@
 @import url('variables.css');
 
-main{
-    margin-top: 4.5rem;
+
+
+main {
+
     margin-left: 2rem;
-    
-    min-width: 30rem;
-    padding: 20px;
-}
-
-#background-overlay{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(5px);
-    z-index: 999;
 
 }
-
-
-/* modal styles */
-#task-modal, #edit-task-modal{
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--color-dark);
-    background-color: var(--color-aside);
-    border: 1px solid black;
-    z-index: 1000;
-
-    width: 70%;
-    max-width: 600px;
-    height: 80%;
-    max-height: 80vh;
-    overflow-y: auto;
-
-}
-
-.modal-content{
-    padding: 20px;
-}
-
-.close{
-    cursor: pointer;
-}
-
-.close i{
-    display: block;
-}
-
-.form-group{
-    margin-bottom: 20px;
-}
-
-.form-group label{
-    display: block;
-    margin-bottom: 5px;
-}
-
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-    width: cals(100% - 40px);
-    padding: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-
-
 
 /* display tasks styles */
 
 
-.col-container{
+.col-container {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    align-items: left;
 }
 
-.col{
+.col {
     flex: 1;
     margin: 0 10px;
     padding: 10px;
     border-radius: 5px;
 
-    
+
 }
 
-.col h2{
+.col h2 {
     margin-top: 0;
 }
 
-.card{
+.card {
     height: 200px;
     width: 150px;
     overflow: hidden;
@@ -109,7 +40,7 @@ main{
     background-color: var(--color-white);
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: var(--card-border-radius);
     color: var(--color-dark);
     box-shadow: 1rem 1rem 1rem var(--color-light);
     transition: all 300ms ease;
@@ -121,15 +52,15 @@ main{
     box-shadow: none;
 }
 
-.delete-task-btn, 
-.edit-task-btn{
+.delete-task-btn,
+.edit-task-btn {
     border: none;
     padding: 5px 10px;
     border-radius: 3px;
     cursor: pointer;
 }
 
-.add-task-btn{
+.add-task-btn {
     border: none;
     padding: 5px 10px;
     border-radius: 3px;
@@ -148,48 +79,47 @@ main{
 
 /* responsive design */
 
-@media(max-width: 992px){
+@media(max-width: 992px) {
 
-    main{
-        margin-top: 6.5rem;
-    }
-
-    .col-container{
+    .container {
         flex-direction: column;
     }
 
-    .col{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+    main {
+        margin-left: 0;
+        margin-top: 4rem;
+        padding: 1rem;
     }
 
-    .col h2{
-        width: 100%;
+    .col-container {
+        flex-direction: column;
+        align-items: center;
     }
-    
+
+    .col {
+        width: 90%;
+        margin: 10px 0;
+    }
+
 }
 
 
 @media(max-width: 400px) {
-    
-    .col{
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
+
+    .col-container {
+        flex-direction: column;
     }
 
-    .card{
-        flex: 0 0 auto;
-        margin-right: 10px;
-        
+    .col {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
     }
-    
+
+    .card {
+        width: 90%;
+        margin: 10px 0;
+
+    }
+
 }
-
-
-
-
-
-
-
