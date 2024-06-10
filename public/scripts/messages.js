@@ -44,7 +44,7 @@ const sendBtn = document.getElementById('send')
                 ws.close()
             }
 
-            ws = new WebSocket('ws://localhost:7000') //replace 'localhost' with actual ip adrs
+            ws = new WebSocket('ws://localhost:7000') //replace 'localhost' with actual ip adrs to send messages from multiple devices
            
 
             ws.onopen = () => {
@@ -54,7 +54,7 @@ const sendBtn = document.getElementById('send')
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data)
                 showMessage(message)
-                message.sender = req.user.name // Assuming req.user.name contains the sender's name on the server side
+                message.sender = req.user.name 
                 wss.clients.forEach(function each(client) {
                     if (client.readyState === WebSocket.OPEN) {
                         client.send(JSON.stringify(message))

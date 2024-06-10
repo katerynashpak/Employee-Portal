@@ -19,6 +19,8 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 
+const {formatDueDate} = require('./public/scripts/format-task-data')
+
 const http = require('http')
 const {handleWebSocket} = require('./config/websocket')
 
@@ -78,15 +80,20 @@ app.use(methodOverride('_method'))
 app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if authenticated before getting
     try {
         const users = await User.find() // Fetch all registered users from MongoDB
-        res.render('dashboard', { users, avatar: req.user.avatar }) // Pass users to the dashboard template
+        const tasks = await Task.find().populate('taskAssignee', 'name') // Fetch all tasks from MongoDB
+
+        const formattedDueDate = tasks.map(task => formatDueDate(task))
+
+
+        res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate }) // Pass users to the dashboard template
     } catch (error) {
         console.error(error)
-        res.status(500).send('Internal Server Error')
+        res.status(500).send('Error rendering dashboard page')
     }
 
 })
 
-
+/*
 //dashboard add-task
 app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     try {
@@ -97,7 +104,7 @@ app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if
     }
 
 })
-
+*/
 
 //index
 app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated before getting
@@ -264,8 +271,8 @@ app.get('/:page', async (req, res) => {
 
 app.use('/tasks', async (req, res, next) => {
     try {
-        const tasks = await Task.find()
-        req.tasks = tasks // Attach tasks to request object
+        const tasks = await Task.find().populate('taskAssignee', 'name')
+        req.tasks = tasks.map(task => formatDueDate(task))
         next()
     } catch (err) {
         return res.status(500).json({ message: err.message })
@@ -273,9 +280,12 @@ app.use('/tasks', async (req, res, next) => {
 })
 
 // Route to render tasks page with all tasks
-app.get('/tasks', checkAuthenticated, (req, res) => {
+app.get('/tasks', checkAuthenticated, async (req, res) => {
     try {
-        res.render('tasks.ejs', { tasks: req.tasks, avatar: req.user.avatar })
+        const tasks = await Task.find().populate('taskAssignee', 'name')
+        
+        const formattedDueDate = tasks.map(task => formatDueDate(task))
+        res.render('tasks.ejs', { tasks: req.tasks, formattedDueDate, avatar: req.user.avatar })
     } catch (err) {
         res.status(500).send('Error rendering tasks page')
     }
@@ -370,7 +380,6 @@ app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
         if (req.body.status && !allowedStatus.includes(req.body.status)) {
             return res.status(400).json({ message: 'Invalid status value' })
         }
-
         
         // Update task fields
         if (req.body.taskName) 
@@ -426,11 +435,6 @@ app.get('/team', checkAuthenticated, async (req, res) => {
         res.status(500).send('Error rendering team page')
     }
 })
-
-
-
-
-
 
 
 
@@ -536,6 +540,6 @@ const server = http.createServer(app)
 handleWebSocket(server)
 
 const port = process.env.PORT || 7000
-server.listen(port, () => console.log(`Portal app listening to port ${port}!`))
+server.listen(port, '0.0.0.0', () => console.log(`Portal app listening to port ${port}!`))
 
 

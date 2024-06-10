@@ -5,8 +5,6 @@ const closeBtn = document.querySelector("#close-btn")
 const themeToggler = document.querySelector('.theme-toggler')
 const themeIcons = document.querySelectorAll('.theme-toggler i')
 
-
-
 menuBtn.addEventListener('click', () => {
     sideMenu.style.display = 'block'
 })
@@ -42,18 +40,18 @@ window.addEventListener('load', () => { //check what mode was saved in storage
 })
 
 
-
-
-
-
-
-//recent orders
+//recent orders / tasks
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/')
-        .then(response => response.text())
-            .then(html => {
-                document.getElementById('recent-orders-placeholder').innerHTML = html
-            })
-    .catch(error => console.error('Error fetching: ', error))
-})
+    const toggleBtn = document.getElementById('toggle-task-view')
+    const hiddenTasks = document.querySelectorAll('.task-info.hidden')
 
+    toggleBtn.addEventListener('click', () => {
+        hiddenTasks.forEach(task => task.classList.toggle('hidden'))
+
+        if(toggleBtn.textContent === 'Show All'){
+            toggleBtn.textContent = 'Show Less'
+        } else {
+            toggleBtn.textContent = 'Show All'
+        }
+    })
+})

@@ -50,11 +50,6 @@
           <h3>Tasks</h3>
         </a>
 
-        <a href="/analytics">
-          <i class="fa-solid fa-chart-line"></i>
-          <h3>Analytics</h3>
-        </a>
-
         <a href="/messages">
           <i class="fa-solid fa-comment"></i>
           <h3>Messages</h3>
@@ -235,11 +230,15 @@
                 <%= task.name %>
               </h3>
               <p>
-                <%= task.description %>
+                Priority: <%= task.priority %>
+              </p>
+              <p>
+                Assignee: <%= task.taskAssignee ? task.taskAssignee.name : 'Unassigned' %>
               </p>
               <p>
                 Due Date: <%= task.dueDate %>
               </p>
+
               <button type="submit" class="delete-task-btn" data-task-id="<%= task._id %>">
                 <i class="fa-solid fa-trash"></i>
               </button>
@@ -260,7 +259,10 @@
                 <%= task.name %>
               </h3>
               <p>
-                <%= task.description %>
+                Priority: <%= task.priority %>
+              </p>
+              <p>
+                Assignee: <%= task.taskAssignee ? task.taskAssignee.name : 'Unassigned' %>
               </p>
               <p>
                 Due Date: <%= task.dueDate %>
@@ -283,7 +285,10 @@
                 <%= task.name %>
               </h3>
               <p>
-                <%= task.description %>
+                Priority: <%= task.priority %>
+              </p>
+              <p>
+                Assignee: <%= task.taskAssignee ? task.taskAssignee.name : 'Unassigned' %>
               </p>
               <p>
                 Due Date: <%= task.dueDate %>
@@ -306,7 +311,10 @@
                 <%= task.name %>
               </h3>
               <p>
-                <%= task.description %>
+                Priority: <%= task.priority %>
+              </p>
+              <p>
+                Assignee: <%= task.taskAssignee ? task.taskAssignee.name : 'Unassigned' %>
               </p>
               <p>
                 Due Date: <%= task.dueDate %>
