@@ -8,14 +8,16 @@ main {
 
 }
 
-/* display tasks styles */
 
+
+/* display tasks styles */
 
 .col-container {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
     align-items: left;
+    width: 30%;
 }
 
 .col {
@@ -77,6 +79,10 @@ main {
     box-shadow: none;
 }
 
+.right{
+    margin-right: 2rem;
+}
+
 /* responsive design */
 
 @media(max-width: 992px) {
@@ -90,6 +96,7 @@ main {
         margin-top: 4rem;
         padding: 1rem;
     }
+    
 
     .col-container {
         flex-direction: column;

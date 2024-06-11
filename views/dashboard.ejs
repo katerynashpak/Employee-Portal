@@ -67,75 +67,51 @@
 
       <h1>Dashboard</h1>
 
-      <div class="date">
-        <input type="date" />
-      </div>
+      <div class="date" id="currentDateTime"></div>
+
+      <!-- Weather API
+       
+      https://api.openweathermap.org/data/2.5/weather?q=Sacramento&appid=763f6e3470526231e1cd4e7e6654bdf&units=imperial
+      -->
+
+
+
 
       <div class="insights">
 
         <!-- Sales -->
 
-        <div class="sales">
-          <i class="fa-solid fa-magnifying-glass-chart"></i>
-          <div class="middle">
-            <div class="left">
-              <h3>Total sales</h3>
-              <h1>$25,024</h1>
-            </div>
-            <div class="progress">
-              <svg>
-                <circle cx='38' cy='38' r='36'></circle>
-              </svg>
-              <div class="number">
-                <p>81%</p>
+        <div class="weather">
+          <div class="weather-search">
+            <input type="text" placeholder="enter city name">
+            <button><img src=""></button>
+          </div>
+          <div class="weather-main">
+            <img src="" class="weather-icon">
+            <h1 class="temp">70°F</h1>
+            <h2 class="city">Sacramento</h2>
+            <div class="weather-details">
+
+              <div class="col">
+                <img src="">
+                <div>
+                  <p class="humidity">50%</p>
+                  <p>Humidity</p>
+                </div>
               </div>
+
+              <div class="col">
+                <img src="">
+                <div>
+                  <p class="wind">mph</p>
+                  <p>Wind Speed</p>
+                </div>
+              </div>
+
             </div>
           </div>
-          <small class="text-muted">Last 24 Hours</small>
+          
         </div>
-
-        <!-- expenses -->
-
-        <div class="expenses">
-          <i class="fa-solid fa-chart-simple"></i>
-          <div class="middle">
-            <div class="left">
-              <h3>Total expenses</h3>
-              <h1>$14,160</h1>
-            </div>
-            <div class="progress">
-              <svg>
-                <circle cx='38' cy='38' r='36'></circle>
-              </svg>
-              <div class="number">
-                <p>62%</p>
-              </div>
-            </div>
-          </div>
-          <small class="text-muted">Last 24 Hours</small>
-        </div>
-
-        <!-- income -->
-
-        <div class="income">
-          <i class="fa-solid fa-chart-pie"></i>
-          <div class="middle">
-            <div class="left">
-              <h3>Total income</h3>
-              <h1>$10,864</h1>
-            </div>
-            <div class="progress">
-              <svg>
-                <circle cx='38' cy='38' r='36'></circle>
-              </svg>
-              <div class="number">
-                <p>44%</p>
-              </div>
-            </div>
-          </div>
-          <small class="text-muted">Last 24 Hours</small>
-        </div>
-      </div>
 
       <!-- upcoming tasks -->
       <div class="upcoming-tasks" id="upcoming-tasks-placeholder">
@@ -225,95 +201,22 @@
       <div class="recent-updates">
         <h2>Recent Updates</h2>
         <div class="updates">
-
-          <div class="update">
-            <div class="profile-photo">
-              <img src="../images/profile-photo-1.jfif" />
+          <% if (logs.length === 0) { %>
+            <div class="no-updates">No recent updates</div>
+          <% } %>
+          <% logs.forEach(log => { %>
+            <div class="update">
+              <div class="profile-photo">
+                <img src="<%= log.user.avatar %>" alt="<%= log.user.name %>'s profile photo" />
+              </div>
+              <div class="message">
+                <p><b><%= log.user.name %></b> <%= log.action %> a task </p>
+                <small class="text-muted"><%= new Date(log.timestamp).toLocaleString() %></small>
+              </div>
             </div>
-            <div class="message">
-              <p><b>Alysa Holmes</b> finished an assignment</p>
-              <small class="text-muted">2 minutes ago</small>
-            </div>
-          </div>
-
-          <div class="update">
-            <div class="profile-photo">
-              <img src="../images/profile-photo-2.jfif" />
-            </div>
-            <div class="message">
-              <p>
-                <b>James Austen</b> updates documents
-              </p>
-              <small class="text-muted">4 minutes ago</small>
-            </div>
-          </div>
-
-          <div class="update">
-            <div class="profile-photo">
-              <img src="../images/profile-photo-3.jfif" />
-            </div>
-            <div class="message">
-              <p>
-                <b>MJ Collins</b> sumbitted project design
-              </p>
-              <small class="text-muted">5 minutes ago</small>
-            </div>
-          </div>
-
+          <% }) %>
         </div>
       </div>
-
-      <div class="sales-analytics">
-        <h2>Sales Analytics</h2>
-        <div class="item online">
-          <div class="icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-          <div class="right">
-            <div class="info">
-              <h3>ONLINE ORDERS</h3>
-              <small class="text-muted">Last 24 hours</small>
-            </div>
-            <h5 class="success">+39%</h5>
-            <h3>3849</h3>
-          </div>
-        </div>
-
-        <div class="item offline">
-          <div class="icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-          <div class="right">
-            <div class="info">
-              <h3>OFFLINE ORDERS</h3>
-              <small class="text-muted">Last 24 hours</small>
-            </div>
-            <h5 class="danger">-17%</h5>
-            <h3>1100</h3>
-          </div>
-        </div>
-
-        <div class="item customers">
-          <div class="icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-          <div class="right">
-            <div class="info">
-              <h3>NEW CUSTOMERS</h3>
-              <small class="text-muted">Last 24 hours</small>
-            </div>
-            <h5 class="success">+25%</h5>
-            <h3>849</h3>
-          </div>
-        </div>
-
-        <div class="item add-product">
-          <div>
-            <i class="fa-solid fa-plus"></i>
-            <h3>Add Product</h3>
-          </div>
-        </div>
-
 
       </div>
 
@@ -327,5 +230,29 @@
 
   <!--toggle button functionality-->
   <script src="../scripts/dashboard.js"></script>
+
+  <script src="../scripts/display-datetime.js"></script>
+
+  <script>
+
+    const apiKey = "3763f6e3470526231e1cd4e7e6654bdf"
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=sacramento"
+
+    async function checkWeather(){
+      const response  =await fetch(apiUrl + `&appid=${apiKey}`)
+      var data = await response.json()
+
+      console.log(data)
+
+      document.querySelector('.city').innerHTML = data.name
+      document.querySelector('.temp').innerHTML = data.main.temp
+      document.querySelector('.humidity').innerHTML = data.main.humidity
+      document.querySelector('.wind').innerHTML = data.wind.speed
+
+    }
+
+    checkWeather()
+  </script>
+
 
 </body>

@@ -11,8 +11,11 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+
 const User = require('./models/user')
 const Task = require('./models/task')
+const Log = require('./models/log')
+
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
@@ -81,11 +84,13 @@ app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if au
     try {
         const users = await User.find() // Fetch all registered users from MongoDB
         const tasks = await Task.find().populate('taskAssignee', 'name') // Fetch all tasks from MongoDB
+        const logs = await Log.find().populate('user task').sort({timestamp: -1}).limit(6)
 
         const formattedDueDate = tasks.map(task => formatDueDate(task))
 
-
-        res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate }) // Pass users to the dashboard template
+        console.log(logs)
+        res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate, logs }) // Pass users to the dashboard template
+        
     } catch (error) {
         console.error(error)
         res.status(500).send('Error rendering dashboard page')
@@ -344,6 +349,9 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
 
         const newTask = await task.save()
         //res.status(201).json(newTask)
+
+        await logAction(req.user.id, 'created', newTask._id) //log the action (user created task)
+
         res.redirect('/tasks') //reload the tasks page
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -398,6 +406,7 @@ app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
             task.status = req.body.taskStatus
 
         const updatedTask = await task.save()
+        await logAction(req.user.id, 'updated', taskId)
         res.json(updatedTask)
         console.log(`Task updated successfully: ${updatedTask}`)
     } catch (err) {
@@ -412,6 +421,7 @@ app.delete('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
         //const taskId = req.params.id
         await Task.deleteOne({ _id: req.params.id })
+        await logAction(req.user.id, 'deleted', req.params.id)
         res.json({ message: 'Deleted Task' })
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -531,6 +541,14 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
+const logAction = async (userId, action, taskId) => {
+    const log = new Log({
+        user: userId,
+        action: action,
+        task: taskId
+    })
+    await log.save()
+}
 
 
 
