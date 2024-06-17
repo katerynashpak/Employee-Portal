@@ -4,7 +4,7 @@
 //import libraries
 
 //will load in all the env vars and set then inside the process env
-if (process.env.NODE_ENV !== 'production') { 
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
@@ -17,15 +17,17 @@ const Task = require('./models/task')
 const Log = require('./models/log')
 
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
+const nodemailer = require('nodemailer')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 
-const {formatDueDate} = require('./public/scripts/format-task-data')
+const { formatDueDate } = require('./public/scripts/format-task-data')
 
 const http = require('http')
-const {handleWebSocket} = require('./config/websocket')
+const { handleWebSocket } = require('./config/websocket')
 
 
 
@@ -41,7 +43,7 @@ initializePassport(
 const users = [] //use array instead of database for now
 
 
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
@@ -59,8 +61,8 @@ app.use(express.static('public')) //for css styles
 
 
 app.set('view engine', 'ejs')
-app.use(express.json()) //wrong, getting undefined values for user fields
-app.use(express.urlencoded({extended: true})) //works
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true })) 
 
 app.use(flash())
 
@@ -84,13 +86,13 @@ app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if au
     try {
         const users = await User.find() // Fetch all registered users from MongoDB
         const tasks = await Task.find().populate('taskAssignee', 'name') // Fetch all tasks from MongoDB
-        const logs = await Log.find().populate('user task').sort({timestamp: -1}).limit(6)
+        const logs = await Log.find().populate('user task').sort({ timestamp: -1 }).limit(6)
 
         const formattedDueDate = tasks.map(task => formatDueDate(task))
 
         console.log(logs)
         res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate, logs }) // Pass users to the dashboard template
-        
+
     } catch (error) {
         console.error(error)
         res.status(500).send('Error rendering dashboard page')
@@ -114,10 +116,10 @@ app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if
 //index
 app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated before getting
     res.render('login.ejs', { name: req.user.name, avatar: req.user.avatar })
-    
+
 })
 
-app.get('/index', checkAuthenticated, (req, res) => {    
+app.get('/index', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.name, avatar: req.user.avatar })
 })
 
@@ -138,7 +140,7 @@ app.get('/profile/update', checkAuthenticated, (req, res) => {    //check if aut
         const { _id, name, email, birthday, jobTitle, department, avatar } = req.user
         res.json({ id: _id, name, email, birthday, jobTitle, department, avatar: req.user.avatar })
     } catch (err) {
-        res.status(500).json({message: 'Error rendering profile update page'})
+        res.status(500).json({ message: 'Error rendering profile update page' })
     }
 
 })
@@ -196,11 +198,11 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
         const updatedUser = await user.save()
 
         if (!updatedUser) {
-            return res.status(500).json({message: 'Failed to update user profile'})
+            return res.status(500).json({ message: 'Failed to update user profile' })
         }
 
         console.log('User updated successfully:', updatedUser)
-        return res.json({message: 'Profile updated successfully', user: updatedUser})
+        return res.json({ message: 'Profile updated successfully', user: updatedUser })
 
     } catch (err) {
         console.error('Error updating user:', err.message)
@@ -213,38 +215,38 @@ app.patch('/profile', checkAuthenticated, async (req, res) => {
 
 //profile avatar
 app.patch('/profile/avatar', checkAuthenticated, async (req, res) => {
-    try{
+    try {
         //console.log('Received avatar data: ', req.body.avatarData)
         const userId = req.user.id
         const user = await User.findById(userId)
-        if(!user)
-            return res.status(404).json({message: 'Cannot find user'})
+        if (!user)
+            return res.status(404).json({ message: 'Cannot find user' })
 
         user.avatar = req.body.avatarData
         const updatedUser = await user.save()
         if (!updatedUser)
-            return res.status(500).json({message: 'Failed to update user avatar'})
+            return res.status(500).json({ message: 'Failed to update user avatar' })
 
         console.log('Avatar saved successfully: ', updatedUser)
         res.sendStatus(200)
-    } catch (err){
+    } catch (err) {
         console.error('Error saving avatar: ', err.message)
-        res.status(500).json({message: err.message})
+        res.status(500).json({ message: err.message })
     }
-    
+
 })
 
 app.get('/profile/avatar', checkAuthenticated, async (req, res) => {
-    try{
+    try {
         const userId = req.user.id
         const user = await User.findById(userId)
-        if(!user)
-            return res.status(404).json({message: 'Cannot find user'})
-        
-        res.json({avatar: user.avatar})
+        if (!user)
+            return res.status(404).json({ message: 'Cannot find user' })
+
+        res.json({ avatar: user.avatar })
     } catch (err) {
         console.error('Error fetching avatar: ', err.message)
-        res.status(500).json({message: err.message})
+        res.status(500).json({ message: err.message })
     }
 })
 
@@ -292,7 +294,7 @@ app.use('/tasks', async (req, res, next) => {
 app.get('/tasks', checkAuthenticated, async (req, res) => {
     try {
         const tasks = await Task.find().populate('taskAssignee', 'name')
-        
+
         const formattedDueDate = tasks.map(task => formatDueDate(task))
         res.render('tasks.ejs', { tasks: req.tasks, formattedDueDate, avatar: req.user.avatar })
     } catch (err) {
@@ -305,11 +307,11 @@ app.get('/tasks/:id', checkAuthenticated, async (req, res) => {
         const taskId = req.params.id
         const task = await Task.findById(taskId)
         if (!task) {
-            return res.status(404).json({ message: 'Task not found'})
+            return res.status(404).json({ message: 'Task not found' })
         }
         res.json(task)
     } catch (err) {
-        res.status(500).json({ message: 'Error rendering task'})
+        res.status(500).json({ message: 'Error rendering task' })
     }
 })
 
@@ -319,7 +321,7 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
     try {
 
         //taskAssignee validation
-        const user = await User.findOne({name: req.body.taskAssignee})
+        const user = await User.findOne({ name: req.body.taskAssignee })
         if (!user) {
             return res.status(400).json({ message: 'Invalid task assignee' })
         }
@@ -331,7 +333,7 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
             return res.status(400).json({ message: 'Invalid priority value' })
         }
 
-        
+
         //status validation
         const allowedStatus = ['ready', 'in-progress', 'needs-review', 'done']
         if (!allowedStatus.includes(req.body.taskStatus)) {
@@ -347,7 +349,7 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
             taskAssignee: user._id, //assign ObjectId to user
             priority: req.body.taskPriority,
             startDate: formattedStartDate,
-            dueDate: formattedDueDate, 
+            dueDate: formattedDueDate,
             status: req.body.taskStatus
         })
 
@@ -392,21 +394,21 @@ app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
         if (req.body.status && !allowedStatus.includes(req.body.status)) {
             return res.status(400).json({ message: 'Invalid status value' })
         }
-        
+
         // Update task fields
-        if (req.body.taskName) 
+        if (req.body.taskName)
             task.name = req.body.taskName
-        if (req.body.taskDescription) 
+        if (req.body.taskDescription)
             task.description = req.body.taskDescription
-        if (req.body.taskAssignee) 
+        if (req.body.taskAssignee)
             task.taskAssignee = req.body.taskAssignee
-        if (req.body.taskPriority) 
+        if (req.body.taskPriority)
             task.priority = req.body.taskPriority
-        if (req.body.startDate) 
+        if (req.body.startDate)
             task.startDate = req.body.startDate
-        if (req.body.dueDate) 
+        if (req.body.dueDate)
             task.dueDate = req.body.dueDate
-        if (req.body.taskStatus) 
+        if (req.body.taskStatus)
             task.status = req.body.taskStatus
 
         const updatedTask = await task.save()
@@ -439,13 +441,13 @@ app.delete('/tasks/:id', checkAuthenticated, async (req, res) => {
 //team
 
 app.get('/team', checkAuthenticated, async (req, res) => {
-    try{
+    try {
         const users = await User.find()
 
-        users.sort((a,b) => a.name.localeCompare(b.name))
+        users.sort((a, b) => a.name.localeCompare(b.name))
 
-        res.render('team.ejs', {users: users, avatar: req.user.avatar})
-    } catch (err){
+        res.render('team.ejs', { users: users, avatar: req.user.avatar })
+    } catch (err) {
         res.status(500).send('Error rendering team page')
     }
 })
@@ -458,7 +460,10 @@ app.get('/team', checkAuthenticated, async (req, res) => {
 //login
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
+    const resetPasswordSuccess = req.session.resetPasswordSuccess
+    if(resetPasswordSuccess)
+        req.session.resetPasswordSuccess = false
+    res.render('login', {resetPasswordSuccess})
 })
 
 
@@ -467,7 +472,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/login',
     failureFlash: true
-    }))
+}))
 
 
 
@@ -486,7 +491,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
             return res.render('register', { error: 'Email is already in use. Try to log in' })
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10) //hash password 10 times
-        
+
         const newUser = new User({
             name: req.body.name,
             email: req.body.email,
@@ -517,9 +522,109 @@ app.delete('/logout', function (req, res, next) { //logout is an async function
         if (err) {
             return next(err)
         }
-    res.redirect('/login')
+        res.redirect('/login')
     })
 })
+
+
+//forgot password
+app.get('/forgot-password', checkNotAuthenticated, (req, res) => {
+    res.render('forgot-password.ejs')
+})
+
+app.post('/forgot-password', async (req, res) => {
+    const { email } = req.body
+    try {
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).send('User with this email not found')
+        }
+
+        const token = crypto.randomBytes(20).toString('hex');
+
+        user.resetPasswordToken = token
+        user.resetPasswordExpires = Date.now() + 3600000 //1 hour
+
+        await user.save()
+
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        })
+
+        const mailOptions = {
+            to: user.email,
+            from: process.env.EMAIL_USER,
+            subject: 'Password Reset',
+            text: `We’ve received your request to reset your Employee Portal account password.\n\n 
+                    Just click on the link below and follow the simple instructions:\n\n
+                    http://localhost:7000/reset-password/${token}\n\n `
+        }
+
+        transporter.sendMail(mailOptions, (err) => {
+            if (err) {
+                console.error('Error sending email:', err)
+                return res.status(500).send('Error sending email')
+            }
+            res.status(200).send('Recovery email sent')
+        })
+
+
+
+    } catch (err) {
+        console.error('Error processing forgot password request:', err)
+        res.status(500).send('Error processing forgot password request')
+    }
+})
+
+
+app.get('/reset-password/:token', checkNotAuthenticated, (req, res) => {
+    const token = req.params.token
+    try {
+        res.render('reset-password', {token})
+    } catch(err){
+        res.status(500).send('Error rendering reset password page')
+    }
+})
+    
+
+
+
+app.post('/reset-password/:token', async (req, res) => {
+    try {
+        const user = await User.findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: { $gt: Date.now() }
+        })
+
+        if (!user) {
+            return res.status(400).send('Password reset token is invalid or expired')
+        }
+
+        const { password } = req.body
+        user.password = await bcrypt.hash(password, 10)
+        user.resetPasswordToken = undefined
+        user.resetPasswordExpires = undefined
+
+        await user.save()
+        
+        req.session.resetPasswordSuccess = true
+
+        res.redirect('/login')
+
+        
+    } catch (err) {
+        res.status(500).send('Error processing request')
+    }
+})
+
+
+
 
 
 
@@ -551,7 +656,7 @@ const logAction = async (userId, action, taskId) => {
         action: action,
         task: taskId
     })
-    
+
     await log.save()
 }
 

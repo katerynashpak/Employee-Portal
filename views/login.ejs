@@ -23,6 +23,11 @@
         <%= messages.error %>
           <% } %>
 
+          <% if (resetPasswordSuccess) { %>
+            <p style="color: green; margin-top: 5px;">Password has been successfully updated</p>
+            <% delete resetPasswordSuccess; %>
+          <% } %>
+
             <form action="/login" method="POST">
 
 
@@ -41,7 +46,7 @@
                 <label>
                   <input type="checkbox">Remember me</input>
                 </label>
-                <a href="#">Forgot password?</a>
+                <a href="/forgot-password">Forgot password?</a>
               </div>
 
               <button type="submit" class="btn">Login</button>

@@ -20,7 +20,8 @@
 //						"npm i bcrypt" (to hash passwords & compare hash passwords to ensure that they are secure)
 //						"npm i passport-local express-session express-flash" 
 //							(passport strategy is authentification middleware)
-//						"npm i method-override" (for logout)
+//						"npm i method-override" (for logout)"
+//                      "npm install express mongoose nodemailer crypto bcryptjs"
 
 
 

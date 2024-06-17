@@ -630,16 +630,7 @@ main .upcoming-tasks button {
         display: block; /* Stack details vertically */
         
     }
-/*
-    .weather .icon .weather-icon{
-        margin-left: 180px;
-    }
 
-    .weather .temperature-city,
-    .weather .details {
-        margin-left: 200px;
-    }
-*/
     .weather .weather-details .col {
         flex: 1; 
         
