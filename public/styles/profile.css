@@ -2,15 +2,17 @@
 
 main {
 
-    margin: 0 2rem;
-    padding: 1rem
+    margin-left: 250px;
+    padding: 1rem;
 }
+
+
 
 main .wrapper {
 
     margin-top: 1.4rem;
     width: 90%;
-    max-width: 1200px;
+    
     margin: 1.4rem auto;
 
 
@@ -29,6 +31,8 @@ main .wrapper>div {
     font-size: large;
     width: 100%;
     box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+
 
 }
 
@@ -39,6 +43,8 @@ main .wrapper h3 p {
 #avatarCanvas {
     border-radius: 50%;
     cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+
 }
 
 #avatarCanvas:hover{
@@ -55,12 +61,14 @@ main .wrapper h3 p {
     cursor: pointer;
     background-color: var(--color-aside);
     color: var(--color-dark);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+
 
 }
 
 
 
-@media(max-width: 992px) {
+@media(max-width: 786px) {
 
     main {
         margin: 0;

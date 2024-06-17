@@ -58,10 +58,14 @@
 
 
 
-        <a href="/login">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <h3>Logout</h3>
-        </a>
+        <div class="logout-container">
+          <form action="/logout?_method=DELETE" method="POST" class="logout-form">
+            <button type="submit" class="btn-form-link">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+
+          </form>
+        </div>
       </div>
     </aside>
 

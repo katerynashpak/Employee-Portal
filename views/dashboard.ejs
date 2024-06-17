@@ -56,10 +56,14 @@
           <span class="message-count">26</span>
         </a>
 
-        <a href="/login">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          <h3>Logout</h3>
-        </a>
+        <div class="logout-container">
+          <form action="/logout?_method=DELETE" method="POST" class="logout-form">
+            <button type="submit" class="btn-form-link">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+
+          </form>
+        </div>
       </div>
     </aside>
 
@@ -69,78 +73,82 @@
 
       <div class="date" id="currentDateTime"></div>
 
-      <!-- Weather API
-       
-      https://api.openweathermap.org/data/2.5/weather?q=Sacramento&appid=763f6e3470526231e1cd4e7e6654bdf&units=imperial
-      -->
-
-
-
 
       <div class="insights">
 
-        <!-- Sales -->
+        <!-- Weather -->
 
         <div class="weather">
-          <div class="weather-search">
-            <input type="text" placeholder="enter city name">
-            <button><img src=""></button>
-          </div>
+
           <div class="weather-main">
-            <img src="" class="weather-icon">
-            <h1 class="temp">70°F</h1>
-            <h2 class="city">Sacramento</h2>
+
             <div class="weather-details">
 
-              <div class="col">
-                <img src="">
-                <div>
-                  <p class="humidity">50%</p>
-                  <p>Humidity</p>
-                </div>
+              <div class="col icon">
+                <img src="" class="weather-icon" id="weather-icon">
+
               </div>
 
-              <div class="col">
-                <img src="">
-                <div>
-                  <p class="wind">mph</p>
-                  <p>Wind Speed</p>
-                </div>
+              <div class="col temperature-city">
+                <h2 class="temp">
+                  </h1>
+                  <h2 class="city"></h2>
+
+              </div>
+
+              <div class="col temperature">
+
+
+              </div>
+
+              <div class="col details">
+                <h3 class="description">
+                  </h1>
+                  <div>
+                    <span class="humidity"></span>
+                    <span>Humidity</span>
+                  </div>
+
+                  <div>
+                    <span class="wind"></span>
+                    <span>Wind</span>
+                  </div>
+
               </div>
 
             </div>
           </div>
-          
+
         </div>
 
-      <!-- upcoming tasks -->
-      <div class="upcoming-tasks" id="upcoming-tasks-placeholder">
-        <h2>Upcoming tasks</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Task Name</th>
-              <th>Priority</th>
-              <th>Assignee</th>
-              <th>Due Date</th>
-              <th>Status</th>
-              
-            </tr>
-          </thead>
-          <tbody> 
-            <!--task datail-->
-            <% tasks.forEach((task,index) => { %>
+        <!-- upcoming tasks -->
+        <div class="upcoming-tasks" id="upcoming-tasks-placeholder">
+          <h2>Upcoming tasks</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Task Name</th>
+                <th>Priority</th>
+                <th>Assignee</th>
+                <th>Due Date</th>
+                <th>Status</th>
 
-              
+              </tr>
+            </thead>
+            <tbody>
+              <!--task datail-->
+              <% tasks.forEach((task,index)=> { %>
+
+
                 <tr class="task-info <%= index >= 4 ? 'hidden' : '' %>">
-  
+
                   <td class="task-name">
                     <%= task.name %>
                   </td>
-  
+
                   <td class="task-priority">
-                      <%= task.priority %>
-                    </a>
+                    <%= task.priority %>
+                      </a>
                   </td>
 
                   <td class="task-assignee">
@@ -148,7 +156,7 @@
                   </td>
 
                   <td class="task-dueDate">
-                    
+
                     <%= task.dueDate %>
                   </td>
 
@@ -157,11 +165,12 @@
                   </td>
 
                 </tr>
-            <% }); %>
-          </tbody>
-          
-        </table>
-        <button id="toggle-task-view">Show All</button>
+                <% }); %>
+            </tbody>
+
+          </table>
+          <button id="toggle-task-view">Show All</button>
+        </div>
       </div>
 
     </main>
@@ -201,27 +210,33 @@
       <div class="recent-updates">
         <h2>Recent Updates</h2>
         <div class="updates">
-          <% if (logs.length === 0) { %>
+          <% if (logs.length===0) { %>
             <div class="no-updates">No recent updates</div>
-          <% } %>
-          <% logs.forEach(log => { %>
-            <div class="update">
-              <div class="profile-photo">
-                <img src="<%= log.user.avatar %>" alt="<%= log.user.name %>'s profile photo" />
-              </div>
-              <div class="message">
-                <p><b><%= log.user.name %></b> <%= log.action %> a task </p>
-                <small class="text-muted"><%= new Date(log.timestamp).toLocaleString() %></small>
-              </div>
-            </div>
-          <% }) %>
+            <% } %>
+              <% logs.forEach(log=> { %>
+                <div class="update">
+                  <div class="profile-photo">
+                    <img src="<%= log.user.avatar %>" alt="<%= log.user.name %>'s profile photo" />
+                  </div>
+                  <div class="message">
+                    <p><b>
+                        <%= log.user.name %>
+                      </b>
+                      <%= log.action %> a task
+                    </p>
+                    <small class="text-muted">
+                      <%= new Date(log.timestamp).toLocaleString() %>
+                    </small>
+                  </div>
+                </div>
+                <% }) %>
         </div>
       </div>
 
-      </div>
-
-
     </div>
+
+
+  </div>
 
 
 
@@ -235,19 +250,25 @@
 
   <script>
 
-    const apiKey = "3763f6e3470526231e1cd4e7e6654bdf"
+    const apiKey = "29588e48146f49da1fdb9cccf41fa7b3"
     const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=sacramento"
 
-    async function checkWeather(){
-      const response  =await fetch(apiUrl + `&appid=${apiKey}`)
+    async function checkWeather() {
+      const response = await fetch(apiUrl + `&appid=${apiKey}`)
       var data = await response.json()
 
       console.log(data)
 
       document.querySelector('.city').innerHTML = data.name
-      document.querySelector('.temp').innerHTML = data.main.temp
-      document.querySelector('.humidity').innerHTML = data.main.humidity
-      document.querySelector('.wind').innerHTML = data.wind.speed
+      document.querySelector('.temp').innerHTML = `${data.main.temp}°F`
+      document.querySelector('.description').innerHTML = data.weather[0].description
+      document.querySelector('.humidity').innerHTML = `${data.main.humidity}%`
+      document.querySelector('.wind').innerHTML = `${data.wind.speed} mph`
+
+      const weatherIcon = document.getElementById('weather-icon')
+      const weatherCode = data.weather[0].icon
+
+      weatherIcon.src = `../images/${weatherCode}@2x.png`
 
     }
 

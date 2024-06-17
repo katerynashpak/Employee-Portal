@@ -34,19 +34,20 @@ main {
 }
 
 .card {
-    height: 200px;
-    width: 150px;
+    height: 220px;
+    width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
-
+    overflow-y: auto;
     background-color: var(--color-white);
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
     border-radius: var(--card-border-radius);
     color: var(--color-dark);
     box-shadow: 1rem 1rem 1rem var(--color-light);
     transition: all 300ms ease;
     backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 
@@ -72,6 +73,7 @@ main {
     box-shadow: 0.5rem 0.5rem 0.5rem var(--color-light);
     transition: all 300ms ease;
     backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 
@@ -79,9 +81,6 @@ main {
     box-shadow: none;
 }
 
-.right{
-    margin-right: 2rem;
-}
 
 /* responsive design */
 

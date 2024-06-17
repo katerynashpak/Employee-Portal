@@ -1,44 +1,47 @@
 <div class="top">
   <div class="logo">
-    <img src="../images/logo.png"/>
+    <img src="../images/portal-logo.png" />
     <h2>Portal</h2>
   </div>
   <div class="close" id="close-btn">
     <i class="fa-solid fa-xmark"></i>
   </div>
 </div>
-  <div class="sidebar">
 
-    <a href="/profile" class="<%= activeLink === 'profile' ? 'active' : '' %>">
-        <i class="fa-solid fa-user"></i>
-      <h3>Profile</h3>
-    </a>
-    
-    <a href="/dashboard" class="<%= activeLink === 'dashboard' ? 'active' : '' %>">
-      <i class="fa-solid fa-grip-vertical"></i>
-      <h3>Dashboard</h3>
-    </a>
+<div class="sidebar">
 
-    <a href="/team" class="<%= activeLink === 'team' ? 'active' : '' %>">
-        <i class="fa-solid fa-people-group"></i>
-      <h3>Team</h3>
-    </a>
+  <a href="/profile">
+    <i class="fa-solid fa-user"></i>
+    <h3>Profile</h3>
+  </a>
 
-    <a href="tasks" class="<%= activeLink === 'tasks' ? 'active' : '' %>">
-      <i class="fa-regular fa-clipboard"></i>
-      <h3>Tasks</h3>
-    </a>
+  <a href="/dashboard" class="active">
+    <i class="fa-solid fa-grip-vertical"></i>
+    <h3>Dashboard</h3>
+  </a>
 
-    <a href="/messages" class="<%= activeLink === 'messages' ? 'active' : '' %>">
-      <i class="fa-solid fa-comment"></i>
-      <h3>Messages</h3>
-      <span class="message-count">26</span>
-    </a>
+  <a href="/team">
+    <i class="fa-solid fa-people-group"></i>
+    <h3>Team</h3>
+  </a>
 
+  <a href="/tasks">
+    <i class="fa-regular fa-clipboard"></i>
+    <h3>Tasks</h3>
+  </a>
 
+  <a href="/messages">
+    <i class="fa-solid fa-comment"></i>
+    <h3>Messages</h3>
+    <span class="message-count">26</span>
+  </a>
 
-    <a href="/login">
-      <i class="fa-solid fa-arrow-right-from-bracket"></i>
-      <h3>Logout</h3>
-    </a>
+  <div class="logout-container">
+      <form action="/logout?_method=DELETE" method="POST" class="logout-form">
+        <button type="submit" class="btn-form-link">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+        
+      </form>
+    </div>
 </div>

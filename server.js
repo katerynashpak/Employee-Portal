@@ -113,8 +113,12 @@ app.get('/dashboard/add-task', checkAuthenticated, (req, res) => {    //check if
 
 //index
 app.get('/', checkAuthenticated, (req, res) => {    //check if authenticated before getting
-    res.render('index.ejs', { name: req.user.name, avatar: req.user.avatar })
+    res.render('login.ejs', { name: req.user.name, avatar: req.user.avatar })
     
+})
+
+app.get('/index', checkAuthenticated, (req, res) => {    
+    res.render('index.ejs', { name: req.user.name, avatar: req.user.avatar })
 })
 
 //profile
@@ -547,6 +551,7 @@ const logAction = async (userId, action, taskId) => {
         action: action,
         task: taskId
     })
+    
     await log.save()
 }
 
