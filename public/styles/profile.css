@@ -2,7 +2,8 @@
 
 main {
 
-    margin-left: 250px;
+    margin-left: 150px;
+    width: 100%;
     padding: 1rem;
 }
 
@@ -73,6 +74,7 @@ main .wrapper h3 p {
     main {
         margin: 0;
         padding: 1rem;
+        width: 98%;
     }
 
     main .wrapper {
@@ -82,6 +84,7 @@ main .wrapper h3 p {
     main .wrapper>div {
         margin-top: 1.5rem;
         padding: 1rem;
+        width: 98%;
     }
 }
 
@@ -91,12 +94,14 @@ main .wrapper h3 p {
     main .wrapper {
         margin: 0;
         padding: 1rem;
+        
     }
 
     main .wrapper>div {
         margin-top: 1.5rem;
         padding: 0.5rem;
         font-size: medium;
+        width: 98%;
     }
 
     .edit-profile-btn {

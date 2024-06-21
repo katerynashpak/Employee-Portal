@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -24,8 +24,10 @@
 
             <div class="top">
                 <div class="logo">
-                    <img src="../images/portal-logo.png" />
-                    <h2>Portal</h2>
+                    <a href="/dashboard"><img src="../images/portal-logo.png" /></a>
+                    <a href="/dashboard">
+                        <h2>Portal</h2>
+                    </a>
                 </div>
                 <div class="close" id="close-btn">
                     <i class="fa-solid fa-xmark"></i>
@@ -64,12 +66,12 @@
 
                 <div class="logout-container">
                     <form action="/logout?_method=DELETE" method="POST" class="logout-form">
-                      <button type="submit" class="btn-form-link">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                      </button>
-          
+                        <button type="submit" class="btn-form-link">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+
                     </form>
-                  </div>
+                </div>
             </div>
         </aside>
 

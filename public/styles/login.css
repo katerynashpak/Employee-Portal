@@ -18,6 +18,11 @@ body {
     background-position: center;
 }
 
+.pass-warning{
+    white-space: pre-line;
+}
+
+
 .wrapper{
     width: 420px;
     background-color: rgba(194, 191, 217, 0.6);
@@ -92,6 +97,10 @@ body {
 .remember-forgot a:hover,
 .agree-to-terms a:hover{
     text-decoration: underline;
+}
+
+.forgot-password{
+    align-self: flex-end;
 }
 
 

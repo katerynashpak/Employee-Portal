@@ -20,8 +20,8 @@
 
       <div class="top">
         <div class="logo">
-          <img src="../images/portal-logo.png" />
-          <h2>Portal</h2>
+          <a href="/dashboard"><img src="../images/portal-logo.png" /></a>
+          <a href="/dashboard"><h2>Portal</h2></a>
         </div>
         <div class="close" id="close-btn">
           <i class="fa-solid fa-xmark"></i>
@@ -250,8 +250,8 @@
 
   <script>
 
-    const apiKey = "29588e48146f49da1fdb9cccf41fa7b3"
-    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=sacramento"
+    const apiKey = "<%= apiKey %>"
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=San%20Francisco"
 
     async function checkWeather() {
       const response = await fetch(apiUrl + `&appid=${apiKey}`)

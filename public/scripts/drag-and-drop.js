@@ -22,7 +22,7 @@ function handleDrop(e) {
     if (dropZone) {
         //append the dragged task to the drop zone
         dropZone.appendChild(draggedTask)
-        
+
         //const status = dropZone.getAttribute('id')
 
         const statusMap = {
@@ -63,10 +63,10 @@ async function updateTaskStatus(taskId, status) {
         if (!response.ok) {
             throw new Error('Failed to update task status')
         }
-        
+
     } catch (error) {
         console.error('Error updating task status:', error)
-        
+
     }
 }
 

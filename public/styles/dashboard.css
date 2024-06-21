@@ -177,7 +177,7 @@ aside h3 {
 
 
 aside .sidebar a,
-aside .logout-container .btn-form-link{
+aside .logout-container .btn-form-link {
     display: flex;
     color: white;
     margin-left: 2rem;
@@ -192,7 +192,7 @@ aside .logout-container .btn-form-link{
 
 aside .sidebar a span,
 aside .sidebar a i,
-aside .logout-container .btn-form-link i{
+aside .logout-container .btn-form-link i {
     font-size: 1.6rem;
     transition: all 300ms ease;
 }
@@ -206,7 +206,8 @@ aside .logout-container {
 
 aside .sidebar a.active {
     background: var(--color-light);
-    color: var(--color-primary); 
+    color: var(--color-white);
+    text-shadow: var(--text-shadow);
     margin-left: 0;
     margin-top: 5;
 }
@@ -229,7 +230,7 @@ aside .sidebar a.active i {
 
 
 aside .sidebar a:hover,
-aside .logout-container .btn-form-link:hover{
+aside .logout-container .btn-form-link:hover {
     color: var(--color-primary);
 }
 
@@ -269,7 +270,7 @@ aside .logout-container .btn-form-link {
 
 main {
     margin-top: 1.4rem;
-    
+
 }
 
 main .date {
@@ -292,88 +293,70 @@ main .insights {
 
 
 .weather {
-    background: rgba(203, 186, 215, 0.733);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to top, var(--color-aside), var(--color-white));
+    color: white;
     padding: 20px;
-    
-    grid-column: span 3;
-    margin: 20px 0;
-    transition: box-shadow 0.3s ease;
-    height: 200px;
+    border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     transition: all 300ms ease;
     border: 2px solid rgba(255, 255, 255, 0.2);
-    
+
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: span 3;
+
 }
 
-.weather:hover {
+.weather:hover{
     box-shadow: none;
 }
 
-.weather .weather-details {
+.weather-main {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
     align-items: center;
-    height: 100%;
-    
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+
 }
 
-.weather .icon .weather-icon {
-    width: 200px;
-    height: 200px;
-    gap: 10px;
-}
-
-
-.weather .temperature-city .temp {
-    font-size: 40px;
-    color: var(--color-aside);
-    text-shadow: var(--text-shadow);
-}
-
-.weather .temperature-city .city {
-    font-size: 32px;
-    color: white;
-    margin: 10px 0;
-    text-shadow: var(--text-shadow);
-}
-
-.weather .details {
+.weather-details {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.col {
+    flex: 1;
+    text-align: center;
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.temp {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.city {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.description {
     font-size: 18px;
-    color: #555;
-}
-
-.weather .details .description {
-    font-size: 28px; /* Increased size */
-    color: var(--color-aside);
     margin-bottom: 10px;
-    text-shadow: var(--text-shadow);
 }
 
-.weather .details div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 5px;
-}
-
-.weather .details .humidity,
-.weather .details .wind {
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-}
-
-.weather .details span + span {
-    font-size: 16px;
-    color: var(--color-aside);
-    font-weight: bold;
-    text-shadow: var(--text-shadow);
+.details div {
+    margin: 5px 0;
 }
 
 /* --------- recent orders ---------- */
@@ -383,7 +366,7 @@ main .insights {
 main .upcoming-tasks {
     margin: 0;
     grid-column: span 3;
-    
+
 }
 
 main .upcoming-tasks h2 {
@@ -508,7 +491,7 @@ main .upcoming-tasks button {
 
 .right .recent-updates {
     margin-top: 1rem;
-    
+
 }
 
 .right .recent-updates h2 {
@@ -557,14 +540,14 @@ main .upcoming-tasks button {
 
 @media screen and (max-width: 1054px) {
     .container {
-        
+
         grid-template-columns: 7rem auto 23rem;
     }
 
     aside .logo h2 {
         display: none;
     }
-    
+
 
     aside .sidebar h3 {
         display: none;
@@ -579,7 +562,7 @@ main .upcoming-tasks button {
         margin-top: 1.8rem;
     }
 
-    .right{
+    .right {
         margin-left: 70px;
     }
 
@@ -589,6 +572,28 @@ main .upcoming-tasks button {
         gap: 0;
         align-items: center;
     }
+
+    .weather-main {
+        flex-direction: column;
+    }
+
+    .weather-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .temp {
+        font-size: 36px;
+    }
+
+    .city {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
 
     main .upcoming-tasks {
         width: 100%;
@@ -612,33 +617,6 @@ main .upcoming-tasks button {
     }
 }
 
-@media screen and (max-width: 1282px) {
-    .main .insights {
-        grid-template-columns: 1fr; /* Switch to a single column layout */
-        
-        gap: 0;
-    }
-
-    .weather {
-        /* Adjust for single column layout */
-        height: 500px; /* Let it adjust height according to content */
-        grid-template-columns: 1fr;
-        margin-top: 80px;
-    }
-
-    .weather .weather-details {
-        display: block; /* Stack details vertically */
-        
-    }
-
-    .weather .weather-details .col {
-        flex: 1; 
-        
-    }
-
-
-}
-
 @media screen and (max-width: 830px) {
     .container {
         /*width: 100%;*/
@@ -651,7 +629,6 @@ main .upcoming-tasks button {
         background: var(--color-aside);
         width: 18rem;
         z-index: 3;
-        /* order of overlapping elements */
         box-shadow: 1rem 3rem 4rem var(--color-light);
         height: 100vh;
         padding-right: var(--card-padding);
@@ -698,6 +675,23 @@ main .upcoming-tasks button {
         margin-top: 8rem;
         padding: 0 1rem;
         background-size: cover;
+    }
+
+
+    .weather {
+        padding: 10px;
+    }
+
+    .temp {
+        font-size: 28px;
+    }
+
+    .city {
+        font-size: 18px;
+    }
+
+    .description {
+        font-size: 14px;
     }
 
     main .upcoming-tasks {

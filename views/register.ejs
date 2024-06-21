@@ -20,13 +20,13 @@
   <h1>Register</h1>
 
   <% if (locals.error) { %>
-  <p style="color: red;">
+    <p class="pass-warning" style="color: #dc3545; margin-bottom: 10px; margin-top: 10px; font-size: 14px; font-weight: bold; ">
     <%= locals.error %>
   </p>
   <% } %>
 
 
-  <form action="/register" method="POST">
+  <form action="/register" method="POST" id="register-form">
 
     <div class="input-box">
       <input type="text" placeholder="Name" id="name" name="name" required="">
@@ -45,7 +45,7 @@
 
     <div class="agree-to-terms">
       <label>
-        <input type="checkbox">I agree to the terms & conditions</input>
+        <input type="checkbox" id="terms-checkbox" required>I agree to the terms & conditions</input>
       </label>
     </div>
 
@@ -59,6 +59,23 @@
     </div>
   </form>
 
-  
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('register-form')
+      const termsCheckBox = document.getElementById('terms-checkbox')
+
+      form.addEventListener('submit', (event) => {
+        if(!termsCheckBox.checked){
+          event.preventDefault()
+          alert('You must agree to the terms & conditions before registering')
+        }
+      })
+
+    })
+
+
+
+  </script>
 
 </body>

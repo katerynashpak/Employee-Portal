@@ -91,7 +91,7 @@ app.get('/dashboard', checkAuthenticated, async (req, res) => {    //check if au
         const formattedDueDate = tasks.map(task => formatDueDate(task))
 
         console.log(logs)
-        res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate, logs }) // Pass users to the dashboard template
+        res.render('dashboard', { users, avatar: req.user.avatar, tasks: formattedDueDate, logs, apiKey: process.env.WEATHER_API_KEY }) // Pass users to the dashboard template
 
     } catch (error) {
         console.error(error)
@@ -280,6 +280,7 @@ app.get('/:page', async (req, res) => {
 
 //tasks
 
+
 app.use('/tasks', async (req, res, next) => {
     try {
         const tasks = await Task.find().populate('taskAssignee', 'name')
@@ -367,8 +368,8 @@ app.post('/tasks', checkAuthenticated, async (req, res) => {
 app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
     try {
         const taskId = req.params.id
-        console.log(`Updating task with ID: ${taskId}`)
-        console.log('Request body:', req.body)
+        //console.log(`Updating task with ID: ${taskId}`)
+        //console.log('Request body:', req.body)
 
         const task = await Task.findById(taskId)
         if (!task) {
@@ -376,7 +377,7 @@ app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
         }
 
         if (req.body.taskAssignee) {
-            console.log(`Validating task assignee: ${req.body.taskAssignee}`)
+            //console.log(`Validating task assignee: ${req.body.taskAssignee}`)
             const user = await User.findById(req.body.taskAssignee)
             if (!user) {
                 return res.status(400).json({ message: 'Invalid task assignee' })
@@ -396,27 +397,27 @@ app.patch('/tasks/:id', checkAuthenticated, async (req, res) => {
         }
 
         // Update task fields
-        if (req.body.taskName)
-            task.name = req.body.taskName
-        if (req.body.taskDescription)
-            task.description = req.body.taskDescription
+        if (req.body.name)
+            task.name = req.body.name
+        if (req.body.description)
+            task.description = req.body.description
         if (req.body.taskAssignee)
             task.taskAssignee = req.body.taskAssignee
-        if (req.body.taskPriority)
-            task.priority = req.body.taskPriority
+        if (req.body.priority)
+            task.priority = req.body.priority
         if (req.body.startDate)
             task.startDate = req.body.startDate
         if (req.body.dueDate)
             task.dueDate = req.body.dueDate
-        if (req.body.taskStatus)
-            task.status = req.body.taskStatus
+        if (req.body.status)
+            task.status = req.body.status
 
         const updatedTask = await task.save()
         await logAction(req.user.id, 'updated', taskId)
         res.json(updatedTask)
-        console.log(`Task updated successfully: ${updatedTask}`)
+        //console.log(`Task updated successfully: ${updatedTask}`)
     } catch (err) {
-        console.error('Error updating task:', err)
+        //console.error('Error updating task:', err)
         res.status(400).json({ message: err.message })
     }
 })
@@ -486,6 +487,18 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 app.post('/register', checkNotAuthenticated, async (req, res) => {
 
     try {
+
+        
+        const {name, email, password} = req.body
+
+        if(!validatePassword(password)){
+            return res.render('register', 
+                {error: 
+                    'Invalid password format.\n Password must have: \n- a minimum length of 8 characters \n- at least one lowercase letter \n- at least one uppercase letter \n- at least one digit \n- at least one special character (@$!%*?&)'
+                })
+        }
+
+
         const existingUser = await User.findOne({ email: req.body.email })
         if (existingUser)
             return res.render('register', { error: 'Email is already in use. Try to log in' })
@@ -648,6 +661,11 @@ function checkNotAuthenticated(req, res, next) {
         return res.redirect('/')
     }
     next()
+}
+
+function validatePassword(password){
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        return passwordRegex.test(password)
 }
 
 const logAction = async (userId, action, taskId) => {
