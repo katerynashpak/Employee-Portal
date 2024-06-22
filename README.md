@@ -26,8 +26,18 @@
 
 ## Usage
 
+- Demo
+
 [![Watch the video](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-thumbnail.png)](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/portal-demo.mp4)
 
+- Screenshots
+
+![Dashboard](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-dashboard.png)
+![Profile](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-profile.png)
+![Team](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-team.png)
+![Tasks](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-tasks.png)
+![Messages](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-messages.png)
+  
 ## Credits
 
 - Dashboard tutorial by EGATOR: https://www.youtube.com/watch?v=BOF79TAIkYQ&list=PLhOLdsaK0lxOd90M0up5FdSxvPugRtSpQ&index=18
