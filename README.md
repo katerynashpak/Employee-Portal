@@ -26,7 +26,7 @@
 
 ## Usage
 
-[![Watch the video](https://github.com/katerynashpak/Employee-Portal/master/public/images/portal-thumbnail.png)](https://github.com/katerynashpak/Employee-Portal/master/portal-demo.mp4)
+[![Watch the video](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/public/images/portal-thumbnail.png)](https://raw.githubusercontent.com/katerynashpak/Employee-Portal/master/portal-demo.mp4)
 
 ## Credits
 
